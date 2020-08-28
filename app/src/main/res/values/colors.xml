@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FA5258</color>
-    <color name="colorPrimaryDark">#FAD23C</color>
-    <color name="colorAccent">#ff009688</color>
+
     <color name="red_400">#FC5952</color>
     <color name="yellow_400">#E8CA54</color>
     <color name="white">#FFFFFF</color>
@@ -14,6 +12,18 @@
     <color name="window_background">#FFF5F5F5</color>
     <color name="tint">#4D000000</color>
 
+    <color name="colorPrimary">#1F5BF3</color>
+    <color name="colorPrimaryDark">#0947E8</color>
+    <color name="colorAccent">#00A5FF</color>
+
+    <!--colors for modern ui-->
+    <color name="whiteTextColor">#fff</color>
+    <color name="primaryTextColor">#2661FA</color>
+    <color name="loginBkColor">#f0f0f0</color>
+
+    <!--colros for card-->
+    <color name="whiteCardColor">#fff</color>
+    <color name="bgBottomNavigation">#fe485a</color>
 
     <color name="background_color">#009688</color>
     <color name="white_greyish">#EEEEEE</color>

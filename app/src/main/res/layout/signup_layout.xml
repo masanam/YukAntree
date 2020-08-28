@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
@@ -21,14 +21,14 @@
             android:src="@drawable/logo" />
     </androidx.cardview.widget.CardView>
 
-    <com.wartatv.yukantree.customfonts.MyTextViewOleoScriptBold
-        android:layout_width="fill_parent"
+    <TextView
+    android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/signUp"
         android:textColor="@color/colorPrimary"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -154,18 +154,18 @@
 
     <Button
         android:id="@+id/signUpBtn"
+        style="@style/loginButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/loginbutton_selector"
         android:padding="3dp"
         android:text="@string/signUp"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:textStyle="bold" />
 
-    <com.wartatv.yukantree.customfonts.MyTextView
-        android:id="@+id/already_user"
+    <TextView
+    android:id="@+id/already_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -173,7 +173,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/already_user"
-        android:textColor="@color/yellow"
+        android:textColor="@color/colorPrimary"
         android:textSize="15sp" />
 
 </LinearLayout>
