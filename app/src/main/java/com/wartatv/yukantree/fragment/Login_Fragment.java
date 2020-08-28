@@ -64,6 +64,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
     private static Animation shakeAnimation;
     private static FragmentManager fragmentManager;
 
+    Animation frombottom, fromtop;
     ProgressDialog progressDialog;
     LocalStorage localStorage;
     String userString;
@@ -104,6 +105,9 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         // Load ShakeAnimation
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
+//        frombottom = AnimationUtils.loadAnimation(getActivity(),R.anim.frombottom);
+//        fromtop = AnimationUtils.loadAnimation(getActivity(),R.anim.fromtop);
+//        loginButton.startAnimation(frombottom);
 
         // Setting text selector over textviews
         @SuppressLint("ResourceType") XmlResourceParser xrp = getResources().getXml(R.drawable.text_selector);
