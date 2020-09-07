@@ -16,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wartatv.yukantree.R;
+import com.wartatv.yukantree.activity.HostActivity;
 import com.wartatv.yukantree.activity.ProductActivity;
 import com.wartatv.yukantree.model.Category;
 import com.squareup.picasso.Callback;
@@ -84,7 +85,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, HostActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -93,7 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, HostActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -103,14 +104,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     @Override
     public int getItemCount() {
-        if (Tag.equalsIgnoreCase("Home") && categoryList.size() < 6 && categoryList.size() > 3) {
-            return 3;
-        } else if (Tag.equalsIgnoreCase("Home") && categoryList.size() >= 6) {
-            return 6;
-        } else {
             return categoryList.size();
-        }
-
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

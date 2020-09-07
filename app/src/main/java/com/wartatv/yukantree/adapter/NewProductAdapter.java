@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.wartatv.yukantree.R;
 import com.wartatv.yukantree.activity.BaseActivity;
 import com.wartatv.yukantree.activity.MainActivity;
+import com.wartatv.yukantree.activity.ProductActivity;
 import com.wartatv.yukantree.activity.ProductViewActivity;
 import com.wartatv.yukantree.interfaces.AddorRemoveCallbacks;
 import com.wartatv.yukantree.model.Cart;
@@ -109,102 +110,24 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         }
 
 
-        holder.shopNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                holder.shopNow.setVisibility(View.GONE);
-                holder.quantity_ll.setVisibility(View.VISIBLE);
-                _price = product.getPrice();
-                _quantity = holder.quantity.getText().toString();
-                _attribute = product.getAttribute();
-                _subtotal = String.valueOf(Double.parseDouble(_price) * Integer.parseInt(_quantity));
-
-                if (context instanceof MainActivity) {
-                    Cart cart = new Cart(product.getId(), product.getTitle(), product.getImage(), product.getCurrency(), _price, _attribute, _quantity, _subtotal);
-                    cartList = ((BaseActivity) context).getCartList();
-                    cartList.add(cart);
-
-                    String cartStr = gson.toJson(cartList);
-                    //Log.d("CART", cartStr);
-                    localStorage.setCart(cartStr);
-                    ((AddorRemoveCallbacks) context).onAddProduct();
-                    notifyItemChanged(position);
-                }
-            }
-        });
-
-
-        holder.plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                for (int i = 0; i < cartList.size(); i++) {
-                    if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
-                        int total_item = Integer.parseInt(cartList.get(i).getQuantity());
-                        total_item++;
-                        Log.d("totalItem", total_item + "");
-                        holder.quantity.setText(total_item + "");
-                        _subtotal = String.valueOf(Double.parseDouble(holder.price.getText().toString()) * total_item);
-                        cartList.get(i).setQuantity(holder.quantity.getText().toString());
-                        cartList.get(i).setSubTotal(_subtotal);
-                        String cartStr = gson.toJson(cartList);
-                        //Log.d("CART", cartStr);
-                        localStorage.setCart(cartStr);
-                    }
-                }
-
-
-            }
-        });
-
-        holder.minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (Integer.parseInt(holder.quantity.getText().toString()) != 1) {
-                    for (int i = 0; i < cartList.size(); i++) {
-                        if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
-                            int total_item = Integer.parseInt(holder.quantity.getText().toString());
-
-                            total_item--;
-                            holder.quantity.setText(total_item + "");
-                            Log.d("totalItem", total_item + "");
-
-                            _subtotal = String.valueOf(Double.parseDouble(holder.price.getText().toString()) * total_item);
-
-                            cartList.get(i).setQuantity(holder.quantity.getText().toString());
-                            cartList.get(i).setSubTotal(_subtotal);
-                            String cartStr = gson.toJson(cartList);
-                            //Log.d("CART", cartStr);
-                            localStorage.setCart(cartStr);
-
-                        }
-                    }
-
-                }
-
-
-            }
-        });
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ProductViewActivity.class);
-                intent.putExtra("id", product.getId());
-                intent.putExtra("title", product.getTitle());
-                intent.putExtra("image", product.getImage());
-                intent.putExtra("price", product.getPrice());
-                intent.putExtra("currency", product.getCurrency());
-                intent.putExtra("attribute", product.getAttribute());
-                intent.putExtra("discount", product.getDiscount());
-                intent.putExtra("description", product.getDescription());
-
-
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProductActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
         });
+
+        holder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 

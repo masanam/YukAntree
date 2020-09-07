@@ -1,21 +1,46 @@
 package com.wartatv.yukantree.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by .
  * www.wartatv.com
  */
 public class Product {
-    String id;
-    String categoryId;
-    String title;
-    String description;
-    String attribute;
-    String currency;
-    String price;
-    String discount;
-    String image;
+    @SerializedName("id")
+    private String id;
+
+    @SerializedName("title")
+    private String title;
+
+    @SerializedName("image")
+    private String image;
+
+    @SerializedName("categoryId")
+    private String categoryId;
+
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("attribute")
+    private String attribute;
+
+    @SerializedName("price")
+    private String price;
+
+    @SerializedName("discount")
+    private String discount;
+
+    @SerializedName("currency")
+    private String currency;
 
     public Product() {
+    }
+
+    public Product(String id, String title, String image) {
+        this.id = id;
+        this.title = title;
+        this.image = image;
     }
 
     public Product(String id, String categoryId, String title, String description, String attribute, String price, String discount, String image) {

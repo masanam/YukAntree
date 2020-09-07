@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 public class RetrofitClient {
 
     // Base URL for API Requests
-    private static final String BASE_URL = "http://49.128.186.34:2025/api/";
+    private static final String BASE_URL = "http://10.0.2.2:8000/api/";
 
     private static Retrofit getClient() {
         Gson gson = new GsonBuilder()

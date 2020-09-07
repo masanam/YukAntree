@@ -1,13 +1,20 @@
 package com.wartatv.yukantree.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by .
  * www.wartatv.com
  */
 public class Category {
-    String id;
-    String title;
-    String image;
+    @SerializedName("id")
+    private String id;
+
+    @SerializedName("title")
+    private String title;
+
+    @SerializedName("image")
+    private String image;
 
     public Category() {
     }

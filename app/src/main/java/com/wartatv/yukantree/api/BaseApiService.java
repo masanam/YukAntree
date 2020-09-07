@@ -1,44 +1,42 @@
 package com.wartatv.yukantree.api;
 
-//import com.wartatv.yukantree.model.ResponseDosen;
-//import com.wartatv.yukantree.model.ResponseDosenDetail;
-//import com.wartatv.yukantree.model.ResponseMatkul;
+import com.wartatv.yukantree.model.ModelCategory;
+import com.wartatv.yukantree.model.ModelLoket;
+import com.wartatv.yukantree.model.ModelProduct;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 /**
- * Created by fariz ramadhan.
- * website : www.farizdotid.com
- * github : https://github.com/farizdotid
+ * Created by wartatv
  */
 public interface BaseApiService {
 
-    // Fungsi ini untuk memanggil API http://10.0.2.2/mahasiswa/login.php
     @FormUrlEncoded
     @POST("login")
     Call<ResponseBody> loginRequest(@Field("email") String email,
                                     @Field("password") String password);
 
-    // Fungsi ini untuk memanggil API http://10.0.2.2/mahasiswa/register.php
     @FormUrlEncoded
     @POST("signup")
     Call<ResponseBody> registerRequest(@Field("name") String name,
                                        @Field("email") String email,
                                        @Field("password") String password,
-                                       @Field("password_confirmation") String password_confirmation)
+                                       @Field("password_confirmation") String password_confirmation);
 
-    ;
-//
-//    @GET("semuadosen")
-//    Call<ResponseDosen> getSemuaDosen();
-//
+    @GET("admin/categories")
+    Call<ModelCategory> getCategory();
+
+    @GET("admin/hosts")
+    Call<ModelProduct> getHost();
+
+    @GET("admin/lokets")
+    Call<ModelLoket> getLoket();
+
 //    @GET("dosen/{namadosen}")
 //    Call<ResponseDosenDetail> getDetailDosen(@Path("namadosen") String namadosen);
 //

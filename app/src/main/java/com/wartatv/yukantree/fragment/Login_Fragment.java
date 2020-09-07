@@ -251,7 +251,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                                                     getActivity().finish();
                                                     getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                                                 }
-                                            }, 500);
+                                            }, 50);
                                         } else {
                                             Log.i("debug", "onResponse: GA BERHASIL");
                                             new CustomToast().Show_Toast(getActivity(), view,
@@ -276,7 +276,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                     progressDialog.dismiss();
 
                 }
-            }, 500);
+            }, 50);
 
         }
     }

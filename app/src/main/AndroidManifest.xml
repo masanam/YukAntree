@@ -38,6 +38,9 @@
             android:name=".activity.ProductActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
+            android:name=".activity.HostActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
             android:name=".activity.LoginRegisterActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".activity.CartActivity" />

@@ -23,7 +23,7 @@ import com.wartatv.yukantree.activity.MainActivity;
 import com.wartatv.yukantree.activity.ProductViewActivity;
 import com.wartatv.yukantree.interfaces.AddorRemoveCallbacks;
 import com.wartatv.yukantree.model.Cart;
-import com.wartatv.yukantree.model.Product;
+import com.wartatv.yukantree.model.Loket;
 import com.wartatv.yukantree.util.localstorage.LocalStorage;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAdapter.MyViewHolder> {
 
-    List<Product> productList;
+    List<Loket> categoryList;
     Context context;
     String Tag;
     LocalStorage localStorage;
@@ -45,16 +45,18 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
     List<Cart> cartList = new ArrayList<>();
     String _quantity, _price, _attribute, _subtotal;
 
-    public PopularProductAdapter(List<Product> productList, Context context) {
-        this.productList = productList;
+    public PopularProductAdapter(List<Loket> categoryList, Context context) {
+        this.categoryList = categoryList;
         this.context = context;
     }
 
-    public PopularProductAdapter(List<Product> productList, Context context, String tag) {
-        this.productList = productList;
+    public PopularProductAdapter(List<Loket> categoryList, Context context, String tag) {
+        this.categoryList = categoryList;
         this.context = context;
         Tag = tag;
     }
+
+
 
     @NonNull
     @Override
@@ -75,7 +77,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        final Product product = productList.get(position);
+        final Loket product = categoryList.get(position);
         localStorage = new LocalStorage(context);
         gson = new Gson();
         cartList = ((BaseActivity) context).getCartList();
@@ -210,7 +212,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
     @Override
     public int getItemCount() {
 
-        return productList.size();
+        return categoryList.size();
 
     }
 

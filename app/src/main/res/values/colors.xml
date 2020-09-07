@@ -11,6 +11,7 @@
     <color name="divider">#B6B6B6</color>
     <color name="window_background">#FFF5F5F5</color>
     <color name="tint">#4D000000</color>
+    <color name="colorWhite">#FFFFFF</color>
 
     <color name="colorPrimary">#1F5BF3</color>
     <color name="colorPrimaryDark">#0947E8</color>

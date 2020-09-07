@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +26,24 @@ import com.wartatv.yukantree.adapter.CategoryAdapter;
 import com.wartatv.yukantree.adapter.HomeSliderAdapter;
 import com.wartatv.yukantree.adapter.NewProductAdapter;
 import com.wartatv.yukantree.adapter.PopularProductAdapter;
+import com.wartatv.yukantree.api.BaseApiService;
+import com.wartatv.yukantree.api.RetrofitClient;
 import com.wartatv.yukantree.helper.Data;
 import com.wartatv.yukantree.model.Category;
+import com.wartatv.yukantree.model.Loket;
+import com.wartatv.yukantree.model.ModelCategory;
+import com.wartatv.yukantree.model.ModelLoket;
+import com.wartatv.yukantree.model.ModelProduct;
+import com.wartatv.yukantree.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 /**
  * Created by .
  * www.wartatv.com
@@ -48,12 +60,18 @@ public class HomeFragment extends Fragment {
     Data data;
     private int dotscount;
     private ImageView[] dots;
-    private List<Category> categoryList = new ArrayList<>();
     private RecyclerView recyclerView, nRecyclerView, pRecyclerView;
     private CategoryAdapter mAdapter;
     private NewProductAdapter nAdapter;
     private PopularProductAdapter pAdapter;
     private Integer[] images = {R.drawable.slider1, R.drawable.slider2, R.drawable.slider3, R.drawable.slider4, R.drawable.slider5};
+    String[] id;
+    String[] title;
+    String[] image;
+    List<Category> categoryList = new ArrayList<>();
+    List<Product> newList = new ArrayList<>();
+    List<Loket> popularList = new ArrayList<>();
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -65,28 +83,35 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        data = new Data();
+//        data = new Data();
         recyclerView = view.findViewById(R.id.category_rv);
         pRecyclerView = view.findViewById(R.id.popular_product_rv);
         nRecyclerView = view.findViewById(R.id.new_product_rv);
 
-        mAdapter = new CategoryAdapter(data.getCategoryList(), getContext(), "Home");
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+//        mAdapter = new CategoryAdapter(data.getCategoryList(), getContext(), "Home");
+//        mAdapter.notifyDataSetChanged();
+//        Log.i("debug", "onResponse: Data " +data.getCategoryList());
+//
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        recyclerView.setLayoutManager(mLayoutManager);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(mAdapter);
 
-        nAdapter = new NewProductAdapter(data.getNewList(), getContext(), "Home");
-        RecyclerView.LayoutManager nLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        nRecyclerView.setLayoutManager(nLayoutManager);
-        nRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        nRecyclerView.setAdapter(nAdapter);
+        getCategoryList();
+        getNewList();
+        getPopularList();
 
-        pAdapter = new PopularProductAdapter(data.getPopularList(), getContext(), "Home");
-        RecyclerView.LayoutManager pLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        pRecyclerView.setLayoutManager(pLayoutManager);
-        pRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        pRecyclerView.setAdapter(pAdapter);
+//        nAdapter = new NewProductAdapter(data.getNewList(), getContext(), "Home");
+//        RecyclerView.LayoutManager nLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        nRecyclerView.setLayoutManager(nLayoutManager);
+//        nRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        nRecyclerView.setAdapter(nAdapter);
+
+//        pAdapter = new PopularProductAdapter(data.getPopularList(), getContext(), "Home");
+//        RecyclerView.LayoutManager pLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        pRecyclerView.setLayoutManager(pLayoutManager);
+//        pRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        pRecyclerView.setAdapter(pAdapter);
 
 
         timer = new Timer();
@@ -141,6 +166,147 @@ public class HomeFragment extends Fragment {
         scheduleSlider();
 
         return view;
+    }
+
+
+    public void getCategoryList(){
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        Call<ModelCategory> call = apiService.getCategory();
+
+        call.enqueue(new Callback<ModelCategory>() {
+            @Override
+            public void onResponse(Call<ModelCategory> call, Response<ModelCategory> response) {
+                if (response.isSuccessful()){
+                    ModelCategory databody = response.body();
+                    List<Category> data = databody.getResult();
+
+                    id = new String[data.size()];
+                    title = new String[data.size()];
+                    image = new String[data.size()];
+                    int i = 0;
+                    for (Category d: data) {
+                        id[i] = d.getId();
+                        title[i] = d.getTitle();
+                        image[i] = d.getImage();
+
+                        Category c = new Category(id[i],title[i],image[i]);
+                        categoryList.add(c);
+
+                        Log.i("debug", "onResponse: Category-Data " +title[i]);
+                        i++;
+                    }
+                    updateCategory(categoryList);
+                }else{
+                    Log.i("debug", "onResponse: Category-Data Not Found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelCategory> call, Throwable throwable) {
+                Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
+            }
+        });
+    }
+
+    private void updateCategory(List<Category> categoryList) {
+        mAdapter = new CategoryAdapter(categoryList, getContext(), "Home");
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    public void getNewList(){
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        Call<ModelProduct> call = apiService.getHost();
+
+        call.enqueue(new Callback<ModelProduct>() {
+            @Override
+            public void onResponse(Call<ModelProduct> call, Response<ModelProduct> response) {
+                if (response.isSuccessful()){
+                    ModelProduct databody = response.body();
+                    List<Product> data = databody.getResult();
+                    id = new String[data.size()];
+                    title = new String[data.size()];
+                    image = new String[data.size()];
+                    int i = 0;
+                    for (Product d: data) {
+                        id[i] = d.getId();
+                        title[i] = d.getTitle();
+                        image[i] = d.getImage();
+
+                        Product h = new Product(id[i],title[i],image[i]);
+                        newList.add(h);
+
+                        Log.i("debug", "onResponse: Category-Data " +title[i]);
+                        i++;
+                    }
+                    updateNew(newList);
+                }else{
+                    Log.i("debug", "onResponse: Category-Data Not Found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelProduct> call, Throwable throwable) {
+                Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
+            }
+        });
+    }
+
+    private void updateNew(List<Product> newList) {
+        nAdapter = new NewProductAdapter(newList, getContext(), "Home");
+        RecyclerView.LayoutManager nLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        nRecyclerView.setLayoutManager(nLayoutManager);
+        nRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        nRecyclerView.setAdapter(nAdapter);
+    }
+
+    public void getPopularList(){
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        Call<ModelLoket> call = apiService.getLoket();
+
+        call.enqueue(new Callback<ModelLoket>() {
+            @Override
+            public void onResponse(Call<ModelLoket> call, Response<ModelLoket> response) {
+                if (response.isSuccessful()){
+                    ModelLoket databody = response.body();
+                    List<Loket> data = databody.getResult();
+                    id = new String[data.size()];
+                    title = new String[data.size()];
+                    image = new String[data.size()];
+                    int i = 0;
+                    for (Loket d: data) {
+                        id[i] = d.getId();
+                        title[i] = d.getTitle();
+                        image[i] = d.getImage();
+
+
+                        Loket h = new Loket(id[i],title[i],image[i]);
+                        popularList.add(h);
+
+                        Log.i("debug", "onResponse: Category-Data " +title[i]);
+                        i++;
+                    }
+                    updatePopular(popularList);
+                }else{
+                    Log.i("debug", "onResponse: Category-Data Not Found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelLoket> call, Throwable throwable) {
+                Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
+            }
+        });
+    }
+
+    private void updatePopular(List<Loket> popularList) {
+        pAdapter = new PopularProductAdapter(popularList, getContext(), "Home");
+        RecyclerView.LayoutManager pLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        pRecyclerView.setLayoutManager(pLayoutManager);
+        pRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        pRecyclerView.setAdapter(pAdapter);
     }
 
 

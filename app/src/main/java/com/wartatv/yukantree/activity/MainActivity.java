@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,8 @@ import com.wartatv.yukantree.fragment.ProfileFragment;
 import com.wartatv.yukantree.helper.Converter;
 import com.wartatv.yukantree.model.User;
 import com.wartatv.yukantree.util.localstorage.LocalStorage;
-
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import java.util.ArrayList;
 
 /**
@@ -47,6 +49,7 @@ public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static int cart_count = 0;
     User user;
+    Fragment fragment = null;
 
     @SuppressLint("ResourceAsColor")
     static void centerToolbarTitle(@NonNull final Toolbar toolbar) {
@@ -122,16 +125,66 @@ public class MainActivity extends BaseActivity
         centerToolbarTitle(toolbar);
         cart_count = cartCount();
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setVisibility(View.GONE);
+//float-button
+        FloatingActionButton fab = findViewById(R.id.fab_menu);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                fragment = new HomeFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_to_left,R.anim.slide_from_right);
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
             }
         });
 
+        ImageView home=findViewById(R.id.nav_home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new HomeFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_to_left,R.anim.slide_from_right);
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
+        });
+
+        ImageView feed=findViewById(R.id.nav_history);
+        feed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new MyOrderFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_to_left,R.anim.slide_from_right);
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
+        });
+
+        ImageView notification=findViewById(R.id.nav_help);
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new MyOrderFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_to_left,R.anim.slide_from_right);
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
+        });
+
+        ImageView profile=findViewById(R.id.nav_profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new ProfileFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_to_left,R.anim.slide_from_right);
+                ft.replace(R.id.content_frame, fragment);
+                ft.commit();
+            }
+        });
 
         localStorage = new LocalStorage(getApplicationContext());
         String userString = localStorage.getUserLogin();
@@ -203,6 +256,9 @@ public class MainActivity extends BaseActivity
             case R.id.nav_my_cart:
                 startActivity(new Intent(getApplicationContext(), CartActivity.class));
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                break;
+            case R.id.nav_history:
+                fragment = new CategoryFragment();
                 break;
 
 

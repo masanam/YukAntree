@@ -29,10 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="40dp"
-        android:text="Travel Like You Never Lost"
+        android:textSize="80sp"
+        android:fontFamily="@font/indigo_daisy"
+        android:text="YukAntree"
         android:lineSpacingExtra="6dp"
         android:textColor="#FFF"
-        android:textSize="42sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bgone" />
 
@@ -43,7 +44,7 @@
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
         android:lineSpacingExtra="8dp"
-        android:text="Simply dummy text that make the design beautiful"
+        android:text="Budayakan Antri untuk kehidupan lebih baik"
         android:textColor="#FFF"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"

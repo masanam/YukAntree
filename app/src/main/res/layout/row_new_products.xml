@@ -8,9 +8,10 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:minHeight="150dp"
+        app:cardElevation="5dp"
+        app:cardBackgroundColor="#90CAF9"
         app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -52,8 +53,8 @@
                     android:layout_centerInParent="true"
                     android:layout_marginTop="15dp"
                     android:text="Food"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="18dp"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -118,7 +119,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/shop_button_bg"
                         android:padding="10dp"
-                        android:text="shop Now"
+                        android:text="Open Loket"
                         android:textColor="@color/gen_white" />
 
                     <LinearLayout
