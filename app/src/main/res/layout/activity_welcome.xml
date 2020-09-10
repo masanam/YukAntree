@@ -23,19 +23,19 @@
         android:layout_height="match_parent"/>
 
 
-    <TextView
+    <com.wartatv.yukantree.customfonts.MyTextViewOleoScriptBold
         android:id="@+id/textView2"
-        android:layout_width="250dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
         android:layout_marginTop="40dp"
-        android:textSize="80sp"
-        android:fontFamily="@font/indigo_daisy"
+        android:textSize="60sp"
         android:text="YukAntree"
         android:lineSpacingExtra="6dp"
         android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/bgone" />
+
 
     <TextView
         android:id="@+id/textView"

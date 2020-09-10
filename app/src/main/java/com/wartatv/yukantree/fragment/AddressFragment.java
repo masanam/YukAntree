@@ -82,14 +82,14 @@ public class AddressFragment extends Fragment {
         if (user != null) {
             name.setText(user.getName());
             email.setText(user.getEmail());
-            mobile.setText(user.getMobile());
+            mobile.setText(user.getPhone());
         }
 
 
         if (userAddress != null) {
             name.setText(userAddress.getName());
             email.setText(userAddress.getEmail());
-            mobile.setText(userAddress.getMobile());
+            mobile.setText(userAddress.getPhone());
             address.setText(userAddress.getAddress());
             zip.setText(userAddress.getZip());
 

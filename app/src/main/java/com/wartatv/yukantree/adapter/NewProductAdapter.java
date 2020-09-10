@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.wartatv.yukantree.R;
 import com.wartatv.yukantree.activity.BaseActivity;
+import com.wartatv.yukantree.activity.LoketActivity;
 import com.wartatv.yukantree.activity.MainActivity;
 import com.wartatv.yukantree.activity.ProductActivity;
 import com.wartatv.yukantree.activity.ProductViewActivity;
@@ -83,9 +84,9 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         holder.quantity.setText("1");
 
         holder.title.setText(product.getTitle());
-        holder.price.setText(product.getPrice());
+        holder.price.setText(product.getPhone());
         holder.currency.setText(product.getCurrency());
-        holder.attribute.setText(product.getAttribute());
+        holder.attribute.setText(product.getAddress());
         Picasso.get().load(product.getImage()).error(R.drawable.no_image).into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -113,7 +114,8 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, LoketActivity.class);
+                intent.putExtra("type",productList.get(position).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -122,7 +124,8 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, LoketActivity.class);
+                intent.putExtra("type",productList.get(position).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }

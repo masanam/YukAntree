@@ -36,9 +36,8 @@ import com.wartatv.yukantree.fragment.PopularProductFragment;
 import com.wartatv.yukantree.fragment.ProfileFragment;
 import com.wartatv.yukantree.helper.Converter;
 import com.wartatv.yukantree.model.User;
+import com.wartatv.yukantree.util.Preferences;
 import com.wartatv.yukantree.util.localstorage.LocalStorage;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import java.util.ArrayList;
 
 /**
@@ -211,6 +210,7 @@ public class MainActivity extends BaseActivity
             @Override
             public void onClick(View view) {
                 localStorage.logoutUser();
+                Preferences.clearLoggedInUser(getBaseContext());
                 startActivity(new Intent(getApplicationContext(), LoginRegisterActivity.class));
                 finish();
                 overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);

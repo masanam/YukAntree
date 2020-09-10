@@ -17,6 +17,7 @@ public class LocalStorage {
     public static final String KEY_USER_ADDRESS = "user_address";
     public static final String KEY_PREFERENCES = "preferences";
     public static final String USER_PREFERENCES = "user_preferences";
+    public static final String USER_ID = "user_id";
     public static final String USER_NAME = "user_name";
     public static final String USER_EMAIL = "user_email";
     public static final String SLIDER_IMAGE = "slider_image";

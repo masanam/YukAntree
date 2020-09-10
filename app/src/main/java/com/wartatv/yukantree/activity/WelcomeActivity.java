@@ -44,8 +44,8 @@ public class WelcomeActivity extends AppCompatActivity {
         btnget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), LoginRegisterActivity.class));
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginRegisterActivity.class));
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }

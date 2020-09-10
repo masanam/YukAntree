@@ -1,27 +1,42 @@
 package com.wartatv.yukantree.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by .
  * www.wartatv.com
  */
 public class UserAddress {
-    String id;
-    String name;
-    String email;
-    String mobile;
-    String address;
-    String state;
-    String city;
-    String zip;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("phone")
+    private String phone;
+    @SerializedName("password")
+    private String password;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("city")
+    private String city;
+    @SerializedName("gender")
+    private String gender;
+    @SerializedName("idKtp")
+    private String idKtp;
+    @SerializedName("blood")
+    private String blood;
+    @SerializedName("dateOfBirth")
+    private String dateOfBirth;
 
-    public UserAddress(String name, String email, String mobile, String address, String state, String city, String zip) {
+
+    public UserAddress(String name, String email, String phone, String address, String state, String city, String zip) {
         this.name = name;
         this.email = email;
-        this.mobile = mobile;
+        this.phone = phone;
         this.address = address;
-        this.state = state;
         this.city = city;
-        this.zip = zip;
     }
 
     public String getId() {
@@ -48,12 +63,12 @@ public class UserAddress {
         this.email = email;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAddress() {
@@ -65,11 +80,11 @@ public class UserAddress {
     }
 
     public String getState() {
-        return state;
+        return blood;
     }
 
     public void setState(String state) {
-        this.state = state;
+        this.blood = blood;
     }
 
     public String getCity() {
@@ -81,10 +96,10 @@ public class UserAddress {
     }
 
     public String getZip() {
-        return zip;
+        return gender;
     }
 
     public void setZip(String zip) {
-        this.zip = zip;
+        this.gender = gender;
     }
 }

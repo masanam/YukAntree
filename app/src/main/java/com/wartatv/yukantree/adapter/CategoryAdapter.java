@@ -62,10 +62,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
         Category category = categoryList.get(position);
         holder.title.setText(category.getTitle());
+
         if (Tag.equalsIgnoreCase("Category")) {
             Picasso.get()
                     .load(category.getImage())
@@ -86,6 +87,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, HostActivity.class);
+                intent.putExtra("type",categoryList.get(position).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -95,6 +97,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HostActivity.class);
+                intent.putExtra("type",categoryList.get(position).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }

@@ -1,25 +1,47 @@
 package com.wartatv.yukantree.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by .
  * www.wartatv.com
  */
 public class User {
-    String id;
-    String name;
-    String email;
-    String mobile;
-    String password;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("phone")
+    private String phone;
+    @SerializedName("password")
+    private String password;
+    @SerializedName("address")
+    private String address;
+    @SerializedName("city")
+    private String city;
+    @SerializedName("gender")
+    private String gender;
+    @SerializedName("idKtp")
+    private String idKtp;
+    @SerializedName("blood")
+    private String blood;
+    @SerializedName("dateOfBirth")
+    private String dateOfBirth;
 
-    public User() {
+
+
+
+    public User(String name, String email, String s, String email1) {
     }
 
-    public User(String id, String name, String email, String mobile, String password) {
-        this.id = id;
+    public User(String name, String email, String phone, String password , String address) {
         this.name = name;
         this.email = email;
-        this.mobile = mobile;
+        this.phone = phone;
         this.password = password;
+        this.address = address;
     }
 
     public String getId() {
@@ -46,12 +68,12 @@ public class User {
         this.email = email;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -60,6 +82,46 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getIdKtp() {
+        return idKtp;
+    }
+
+    public void setIdKtp(String idKtp) {
+        this.idKtp = idKtp;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
 

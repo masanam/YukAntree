@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -34,7 +35,10 @@ import com.wartatv.yukantree.model.Loket;
 import com.wartatv.yukantree.model.ModelCategory;
 import com.wartatv.yukantree.model.ModelLoket;
 import com.wartatv.yukantree.model.ModelProduct;
+import com.wartatv.yukantree.model.ModelSlider;
 import com.wartatv.yukantree.model.Product;
+import com.wartatv.yukantree.model.Slider;
+import com.wartatv.yukantree.util.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,13 +68,9 @@ public class HomeFragment extends Fragment {
     private CategoryAdapter mAdapter;
     private NewProductAdapter nAdapter;
     private PopularProductAdapter pAdapter;
-    private Integer[] images = {R.drawable.slider1, R.drawable.slider2, R.drawable.slider3, R.drawable.slider4, R.drawable.slider5};
     String[] id;
     String[] title;
     String[] image;
-    List<Category> categoryList = new ArrayList<>();
-    List<Product> newList = new ArrayList<>();
-    List<Loket> popularList = new ArrayList<>();
 
 
     public HomeFragment() {
@@ -83,87 +83,94 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        data = new Data();
         recyclerView = view.findViewById(R.id.category_rv);
         pRecyclerView = view.findViewById(R.id.popular_product_rv);
         nRecyclerView = view.findViewById(R.id.new_product_rv);
 
-//        mAdapter = new CategoryAdapter(data.getCategoryList(), getContext(), "Home");
-//        mAdapter.notifyDataSetChanged();
-//        Log.i("debug", "onResponse: Data " +data.getCategoryList());
-//
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(mAdapter);
-
         getCategoryList();
         getNewList();
         getPopularList();
+        getSliderList();
 
-//        nAdapter = new NewProductAdapter(data.getNewList(), getContext(), "Home");
-//        RecyclerView.LayoutManager nLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        nRecyclerView.setLayoutManager(nLayoutManager);
-//        nRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        nRecyclerView.setAdapter(nAdapter);
 
-//        pAdapter = new PopularProductAdapter(data.getPopularList(), getContext(), "Home");
-//        RecyclerView.LayoutManager pLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        pRecyclerView.setLayoutManager(pLayoutManager);
-//        pRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//        pRecyclerView.setAdapter(pAdapter);
-
+        TextView nama = view.findViewById(R.id.fullName);
+        nama.setText(Preferences.getLoggedInUser(getActivity()));
 
         timer = new Timer();
         viewPager = view.findViewById(R.id.viewPager);
 
         sliderDotspanel = view.findViewById(R.id.SliderDots);
 
-        HomeSliderAdapter viewPagerAdapter = new HomeSliderAdapter(getContext(), images);
+//        HomeSliderAdapter viewPagerAdapter = new HomeSliderAdapter(getContext(), images);
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        Call<ModelSlider> call = apiService.getSlider();
 
-        viewPager.setAdapter(viewPagerAdapter);
-
-        dotscount = viewPagerAdapter.getCount();
-        dots = new ImageView[dotscount];
-
-        for (int i = 0; i < dotscount; i++) {
-
-            dots[i] = new ImageView(getContext());
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
-
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            params.setMargins(8, 0, 8, 0);
-
-            sliderDotspanel.addView(dots[i], params);
-
-        }
-
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        call.enqueue(new Callback<ModelSlider>() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onResponse(Call<ModelSlider> call, Response<ModelSlider> response) {
+                if (response.isSuccessful()){
+                    ModelSlider databody = response.body();
+                    List<Slider> sliderImg = databody.getResult();
+                    Log.i("debug", "onResponse: Slider" + sliderImg.size());
 
-            }
+                    HomeSliderAdapter viewPagerAdapter = new HomeSliderAdapter(getContext(), sliderImg);
 
-            @Override
-            public void onPageSelected(int position) {
+                    viewPager.setAdapter(viewPagerAdapter);
 
-                for (int i = 0; i < dotscount; i++) {
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
+                    dotscount = viewPagerAdapter.getCount();
+                    dots = new ImageView[dotscount];
+
+                    for (int i = 0; i < dotscount; i++) {
+
+                        dots[i] = new ImageView(getContext());
+                        dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
+
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                        params.setMargins(8, 0, 8, 0);
+
+                        sliderDotspanel.addView(dots[i], params);
+
+                    }
+
+                    dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+
+                    viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                        }
+
+                        @Override
+                        public void onPageSelected(int position) {
+
+                            for (int i = 0; i < dotscount; i++) {
+                                dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
+                            }
+
+                            dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
+                    scheduleSlider();
+                }else{
+                    Log.i("debug", "onResponse: Slider-Data Not Found");
                 }
-
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
-
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onFailure(Call<ModelSlider> call, Throwable t) {
+                Log.e("debug", "onFailure: ERROR > " + t.getMessage());
             }
+
         });
-        scheduleSlider();
+
+
+
 
         return view;
     }
@@ -178,25 +185,12 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<ModelCategory> call, Response<ModelCategory> response) {
                 if (response.isSuccessful()){
                     ModelCategory databody = response.body();
-                    List<Category> data = databody.getResult();
-
-                    id = new String[data.size()];
-                    title = new String[data.size()];
-                    image = new String[data.size()];
-                    int i = 0;
-                    for (Category d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
-
-                        Category c = new Category(id[i],title[i],image[i]);
-                        categoryList.add(c);
-
-                        Log.i("debug", "onResponse: Category-Data " +title[i]);
-                        i++;
-                    }
-                    updateCategory(categoryList);
-                }else{
+                    List<Category> categoryList = databody.getResult();
+                    mAdapter = new CategoryAdapter(categoryList, getContext(), "Home");
+                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(mAdapter);                }else{
                     Log.i("debug", "onResponse: Category-Data Not Found");
                 }
             }
@@ -208,12 +202,28 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void updateCategory(List<Category> categoryList) {
-        mAdapter = new CategoryAdapter(categoryList, getContext(), "Home");
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+    public void getSliderList(){
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        Call<ModelSlider> call = apiService.getSlider();
+
+        call.enqueue(new Callback<ModelSlider>() {
+            @Override
+            public void onResponse(Call<ModelSlider> call, Response<ModelSlider> response) {
+                if (response.isSuccessful()){
+                    ModelSlider databody = response.body();
+                    List<Slider> sliderImg = databody.getResult();
+
+                }else{
+                    Log.i("debug", "onResponse: Category-Data Not Found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelSlider> call, Throwable t) {
+                Log.e("debug", "onFailure: ERROR > " + t.getMessage());
+            }
+
+        });
     }
 
     public void getNewList(){
@@ -225,23 +235,12 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<ModelProduct> call, Response<ModelProduct> response) {
                 if (response.isSuccessful()){
                     ModelProduct databody = response.body();
-                    List<Product> data = databody.getResult();
-                    id = new String[data.size()];
-                    title = new String[data.size()];
-                    image = new String[data.size()];
-                    int i = 0;
-                    for (Product d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
-
-                        Product h = new Product(id[i],title[i],image[i]);
-                        newList.add(h);
-
-                        Log.i("debug", "onResponse: Category-Data " +title[i]);
-                        i++;
-                    }
-                    updateNew(newList);
+                    List<Product> newList = databody.getResult();
+                    nAdapter = new NewProductAdapter(newList, getContext(), "Home");
+                    RecyclerView.LayoutManager nLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    nRecyclerView.setLayoutManager(nLayoutManager);
+                    nRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                    nRecyclerView.setAdapter(nAdapter);
                 }else{
                     Log.i("debug", "onResponse: Category-Data Not Found");
                 }
@@ -254,13 +253,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void updateNew(List<Product> newList) {
-        nAdapter = new NewProductAdapter(newList, getContext(), "Home");
-        RecyclerView.LayoutManager nLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        nRecyclerView.setLayoutManager(nLayoutManager);
-        nRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        nRecyclerView.setAdapter(nAdapter);
-    }
 
     public void getPopularList(){
         BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
@@ -271,24 +263,12 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<ModelLoket> call, Response<ModelLoket> response) {
                 if (response.isSuccessful()){
                     ModelLoket databody = response.body();
-                    List<Loket> data = databody.getResult();
-                    id = new String[data.size()];
-                    title = new String[data.size()];
-                    image = new String[data.size()];
-                    int i = 0;
-                    for (Loket d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
-
-
-                        Loket h = new Loket(id[i],title[i],image[i]);
-                        popularList.add(h);
-
-                        Log.i("debug", "onResponse: Category-Data " +title[i]);
-                        i++;
-                    }
-                    updatePopular(popularList);
+                    List<Loket> popularList = databody.getResult();
+                    pAdapter = new PopularProductAdapter(popularList, getContext(), "Home");
+                    RecyclerView.LayoutManager pLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                    pRecyclerView.setLayoutManager(pLayoutManager);
+                    pRecyclerView.setItemAnimator(new DefaultItemAnimator());
+                    pRecyclerView.setAdapter(pAdapter);
                 }else{
                     Log.i("debug", "onResponse: Category-Data Not Found");
                 }
@@ -299,14 +279,6 @@ public class HomeFragment extends Fragment {
                 Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
             }
         });
-    }
-
-    private void updatePopular(List<Loket> popularList) {
-        pAdapter = new PopularProductAdapter(popularList, getContext(), "Home");
-        RecyclerView.LayoutManager pLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        pRecyclerView.setLayoutManager(pLayoutManager);
-        pRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        pRecyclerView.setAdapter(pAdapter);
     }
 
 

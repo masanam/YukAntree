@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
@@ -36,18 +37,24 @@ import com.wartatv.yukantree.R;
 import com.wartatv.yukantree.activity.MainActivity;
 import com.wartatv.yukantree.api.BaseApiService;
 import com.wartatv.yukantree.api.RetrofitClient;
+import com.wartatv.yukantree.model.ModelUser;
+import com.wartatv.yukantree.model.ResponseLogin;
 import com.wartatv.yukantree.model.User;
+import com.wartatv.yukantree.model.UserAddress;
 import com.wartatv.yukantree.util.CustomToast;
+import com.wartatv.yukantree.util.Preferences;
 import com.wartatv.yukantree.util.Utils;
 import com.wartatv.yukantree.util.localstorage.LocalStorage;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.wartatv.yukantree.util.localstorage.LocalStorage.USER_EMAIL;
 
 /**
  * Created by .
@@ -64,11 +71,18 @@ public class Login_Fragment extends Fragment implements OnClickListener {
     private static Animation shakeAnimation;
     private static FragmentManager fragmentManager;
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    int PRIVATE_MODE = 0;
+    Context _context;
+
+
     Animation frombottom, fromtop;
     ProgressDialog progressDialog;
     LocalStorage localStorage;
     String userString;
-    User user;
+    UserAddress userAddress;
+    Gson gson;
 
     public Login_Fragment() {
 
@@ -96,12 +110,11 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                 .findViewById(R.id.show_hide_password);
         loginLayout = view.findViewById(R.id.login_layout);
         progressDialog = new ProgressDialog(getContext());
-        localStorage = new LocalStorage(getContext());
-        String userString = localStorage.getUserLogin();
-        Gson gson = new Gson();
-        userString = localStorage.getUserLogin();
-        user = gson.fromJson(userString, User.class);
-        Log.d("User", userString);
+//        localStorage = new LocalStorage(getContext());
+//        Gson gson = new Gson();
+//        userString = localStorage.getUserLogin();
+//        user = gson.fromJson(userString, User.class);
+//        Log.d("User", userString);
         // Load ShakeAnimation
         shakeAnimation = AnimationUtils.loadAnimation(getActivity(),
                 R.anim.shake);
@@ -193,6 +206,15 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (Preferences.getLoggedInStatus(getActivity())){
+            startActivity(new Intent(getActivity(),MainActivity.class));
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
+        }
+    }
     // Check Validation before login
     private void checkValidation() {
         // Get email id and password
@@ -233,25 +255,28 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                         } else {
 
                             BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
-                            Call<ResponseBody> call = apiService.loginRequest(
+                            Call<ResponseLogin> call = apiService.loginRequest(
                                     getEmailId,
                                     getPassword
                             );
-                            call.enqueue(new Callback<ResponseBody>() {
+                            call.enqueue(new Callback<ResponseLogin>() {
                                 @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                        if (response.isSuccessful()){
-                                            Log.i("debug", "onResponse: BERHASIL");
-                                            Handler mHand = new Handler();
-                                            mHand.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    progressDialog.dismiss();
+                                public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                                    if (response.isSuccessful()){
+                                        ResponseLogin databody = response.body();
+
+                                        String fullname = databody.getName();
+//                                        Log.i("debug", "onResponse: BERHASIL "+fullname);
+                                        Preferences.setRegisteredUser(getActivity(),getEmailId);
+                                        Preferences.setLoggedInUser(getActivity(),fullname);
+                                        Preferences.setLoggedInStatus(getActivity(),true);
+
+                                        String username = Preferences.getLoggedInUser(getActivity());
+
+                                        progressDialog.dismiss();
                                                     startActivity(new Intent(getActivity(), MainActivity.class));
                                                     getActivity().finish();
                                                     getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                                                }
-                                            }, 50);
                                         } else {
                                             Log.i("debug", "onResponse: GA BERHASIL");
                                             new CustomToast().Show_Toast(getActivity(), view,
@@ -259,11 +284,12 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                                 }
 
                                 @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                public void onFailure(Call<ResponseLogin> call, Throwable t) {
                                     Log.e("debug", "onFailure: ERROR > " + t.getMessage());
                                     new CustomToast().Show_Toast(getActivity(), view,
                                             "Gagal");
                                 }
+
                             });
 
 

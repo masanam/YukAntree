@@ -83,9 +83,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         cartList = ((BaseActivity) context).getCartList();
         holder.title.setText(product.getTitle());
         holder.offer.setText(product.getDiscount());
-        holder.attribute.setText(product.getAttribute());
+        holder.attribute.setText(product.getAddress());
         holder.currency.setText(product.getCurrency());
-        holder.price.setText(product.getPrice());
+        holder.price.setText(product.getPhone());
         Picasso.get()
                 .load(product.getImage())
                 .into(holder.imageView, new Callback() {
@@ -112,7 +112,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                     holder.subTotal.setVisibility(View.VISIBLE);
                     holder.quantity.setText(cartList.get(i).getQuantity());
                     _quantity = cartList.get(i).getQuantity();
-                    _price = product.getPrice();
+                    _price = product.getPhone();
                     _subtotal = String.valueOf(Double.parseDouble(_price) * Integer.parseInt(_quantity));
                     holder.subTotal.setText(_quantity + "X" + _price + "= Rs." + _subtotal);
                     Log.d("Tag : ", cartList.get(i).getId() + "-->" + product.getId());
@@ -199,9 +199,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 holder.subTotal.setVisibility(View.VISIBLE);
 
 
-                _price = product.getPrice();
+                _price = product.getPhone();
                 _quantity = holder.quantity.getText().toString();
-                _attribute = product.getAttribute();
+                _attribute = product.getAddress();
 
                 if (Integer.parseInt(_quantity) != 0) {
                     _subtotal = String.valueOf(Double.parseDouble(_price) * Integer.parseInt(_quantity));
@@ -231,9 +231,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
                 intent.putExtra("id", product.getId());
                 intent.putExtra("title", product.getTitle());
                 intent.putExtra("image", product.getImage());
-                intent.putExtra("price", product.getPrice());
+                intent.putExtra("price", product.getPhone());
                 intent.putExtra("currency", product.getCurrency());
-                intent.putExtra("attribute", product.getAttribute());
+                intent.putExtra("attribute", product.getAddress());
                 intent.putExtra("discount", product.getDiscount());
                 intent.putExtra("description", product.getDescription());
 

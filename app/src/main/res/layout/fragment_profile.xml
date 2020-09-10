@@ -45,11 +45,54 @@
                         android:layout_height="wrap_content"
                         android:text="Name :" />
 
-                    <com.wartatv.yukantree.customfonts.MyTextViewSansRegular
+                    <EditText
+                        android:id="@+id/fullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:hint="masanam"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/cardBorderColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <com.wartatv.yukantree.customfonts.MyTextViewSansBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Name :" />
+
+                    <EditText
+                        android:id="@+id/dateOfBirth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="Santosh Kumar Dash" />
+                        android:hint="masanam"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName" />
+
                 </LinearLayout>
 
                 <View
@@ -68,11 +111,19 @@
                         android:layout_height="wrap_content"
                         android:text="Email :" />
 
-                    <com.wartatv.yukantree.customfonts.MyTextViewSansRegular
-                        android:layout_width="wrap_content"
+                    <com.wartatv.yukantree.customfonts.MyTextView
+                        android:id="@+id/userEmail"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="santoshnet2016@gmail.com" />
+                        android:hint="masanam@gmail.com"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <View
@@ -91,11 +142,20 @@
                         android:layout_height="wrap_content"
                         android:text="Mobile :" />
 
-                    <com.wartatv.yukantree.customfonts.MyTextViewSansRegular
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/mobileNumber"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="9778178337" />
+                        android:hint="089688045345"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="phone" />
                 </LinearLayout>
 
                 <View
@@ -114,11 +174,142 @@
                         android:layout_height="wrap_content"
                         android:text="Address :" />
 
-                    <com.wartatv.yukantree.customfonts.MyTextViewSansRegular
+                    <EditText
+                        android:id="@+id/user_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Pbh"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/cardBorderColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <com.wartatv.yukantree.customfonts.MyTextViewSansBold
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="City :" />
+
+                    <EditText
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
                         android:layout_marginLeft="10dp"
-                        android:text="Banglore" />
+                        android:hint="TangSel"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/cardBorderColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <com.wartatv.yukantree.customfonts.MyTextViewSansBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender :" />
+
+                    <EditText
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Men"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/cardBorderColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <com.wartatv.yukantree.customfonts.MyTextViewSansBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ID KTP :" />
+
+                    <EditText
+                        android:id="@+id/idKtp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:hint="32000000000"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/yellow"
+                        android:textSize="16sp"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/cardBorderColor" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/updateBtn"
+                        style="@style/loginButton"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:padding="3dp"
+                        android:text="@string/update"
+                        android:textColor="@color/white"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
 
                 <View
@@ -127,6 +318,7 @@
                     android:background="@color/cardBorderColor" />
 
             </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 

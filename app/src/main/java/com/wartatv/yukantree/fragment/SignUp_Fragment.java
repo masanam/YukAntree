@@ -28,6 +28,7 @@ import com.wartatv.yukantree.api.BaseApiService;
 import com.wartatv.yukantree.api.RetrofitClient;
 import com.wartatv.yukantree.model.User;
 import com.wartatv.yukantree.util.CustomToast;
+import com.wartatv.yukantree.util.Preferences;
 import com.wartatv.yukantree.util.Utils;
 import com.wartatv.yukantree.util.localstorage.LocalStorage;
 
@@ -128,6 +129,7 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         final String getMobileNumber = mobileNumber.getText().toString();
         final String getPassword = password.getText().toString();
         final String getPasswordConfirm = password.getText().toString();
+        final String getAddres = password.getText().toString();
 
         // Pattern match for email id
         Pattern p = Pattern.compile(Utils.regEx);
@@ -167,11 +169,14 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
                             Log.i("debug", "onResponse: BERHASIL");
-                            user = new User("1", getFullName, getEmailId, getMobileNumber, getPassword);
-                            gson = new Gson();
-                            String userString = gson.toJson(user);
-                            localStorage = new LocalStorage(getContext());
-                            localStorage.createUserLoginSession(userString);
+//                            user = new User(getFullName, getEmailId, getMobileNumber, getPassword, getAddres);
+//                            gson = new Gson();
+//                            String userString = gson.toJson(user);
+//                            localStorage = new LocalStorage(getContext());
+//                            localStorage.createUserLoginSession(userString);
+
+                            Preferences.setRegisteredUser(getActivity(),getEmailId);
+                            Preferences.setRegisteredPass(getActivity(),getPassword);
                             progressDialog.setMessage("Registering Data....");
                             progressDialog.show();
                             Handler mHand = new Handler();

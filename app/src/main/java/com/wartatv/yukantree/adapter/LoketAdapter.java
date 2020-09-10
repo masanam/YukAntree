@@ -20,9 +20,10 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wartatv.yukantree.R;
 import com.wartatv.yukantree.activity.BaseActivity;
-import com.wartatv.yukantree.activity.ProductActivity;
+import com.wartatv.yukantree.activity.LoketActivity;
 import com.wartatv.yukantree.model.Cart;
-import com.wartatv.yukantree.model.Product;
+import com.wartatv.yukantree.model.Loket;
+import com.wartatv.yukantree.model.Loket;
 import com.wartatv.yukantree.util.localstorage.LocalStorage;
 
 import java.util.ArrayList;
@@ -32,9 +33,9 @@ import java.util.List;
  * Created by .
  * www.wartatv.com
  */
-public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> {
+public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder> {
 
-    List<Product> productList;
+    List<Loket> loketList;
     Context context;
     String Tag;
 
@@ -43,13 +44,13 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
     List<Cart> cartList = new ArrayList<>();
     String _quantity, _price, _attribute, _subtotal;
 
-    public HostAdapter(List<Product> productList, Context context) {
-        this.productList = productList;
+    public LoketAdapter(List<Loket> loketList, Context context) {
+        this.loketList = loketList;
         this.context = context;
     }
 
-    public HostAdapter(List<Product> productList, Context context, String tag) {
-        this.productList = productList;
+    public LoketAdapter(List<Loket> loketList, Context context, String tag) {
+        this.loketList = loketList;
         this.context = context;
         Tag = tag;
     }
@@ -72,19 +73,16 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
 
-        final Product product = productList.get(position);
+        final Loket product = loketList.get(position);
         localStorage = new LocalStorage(context);
         gson = new Gson();
         cartList = ((BaseActivity) context).getCartList();
         holder.quantity.setText("1");
 
         holder.title.setText(product.getTitle());
-        holder.price.setText(product.getContact());
+        holder.price.setText(product.getPrice());
         holder.currency.setText(product.getCurrency());
-        holder.attribute.setText(product.getCity());
-        holder.host_address.setText(product.getAddress());
-        holder.host_phone.setText(product.getPhone());
-
+        holder.attribute.setText(product.getAttribute());
         Picasso.get().load(product.getImage()).error(R.drawable.no_image).into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -112,7 +110,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, LoketActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -121,7 +119,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, LoketActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -133,7 +131,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
     @Override
     public int getItemCount() {
 
-        return productList.size();
+        return loketList.size();
 
     }
 
@@ -144,7 +142,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView title, host_address, host_phone, attribute, currency, price, shopNow;
+        TextView title, attribute, currency, price, shopNow;
         ProgressBar progressBar;
         LinearLayout quantity_ll;
         TextView plus, minus, quantity;
@@ -152,9 +150,6 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            host_address = itemView.findViewById(R.id.host_address);
-            host_phone = itemView.findViewById(R.id.host_phone);
 
             imageView = itemView.findViewById(R.id.product_image);
             title = itemView.findViewById(R.id.product_title);

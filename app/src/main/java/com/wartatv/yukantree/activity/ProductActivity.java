@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +23,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.ActionBar;
 import com.wartatv.yukantree.R;
+import com.wartatv.yukantree.adapter.HostAdapter;
+import com.wartatv.yukantree.adapter.LoketAdapter;
 import com.wartatv.yukantree.adapter.ProductAdapter;
+import com.wartatv.yukantree.api.BaseApiService;
+import com.wartatv.yukantree.api.RetrofitClient;
 import com.wartatv.yukantree.helper.Converter;
 import com.wartatv.yukantree.helper.Data;
+import com.wartatv.yukantree.model.Loket;
+import com.wartatv.yukantree.model.ModelLoket;
+import com.wartatv.yukantree.model.ModelLoket;
+import com.wartatv.yukantree.model.Product;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by .
@@ -33,9 +49,13 @@ import com.wartatv.yukantree.helper.Data;
 public class ProductActivity extends BaseActivity {
     private static int cart_count = 0;
     Data data;
-    ProductAdapter mAdapter;
+    LoketAdapter mAdapter;
     String Tag = "List";
     private RecyclerView recyclerView;
+    String[] id;
+    String[] title;
+    String[] image;
+    List<Loket> loketList = new ArrayList<>();
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -52,11 +72,58 @@ public class ProductActivity extends BaseActivity {
 
         cart_count = cartCount();
         recyclerView = findViewById(R.id.product_rv);
-        data = new Data();
-        setUpRecyclerView();
+        getLoketList();
 
     }
 
+    public void getLoketList(){
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        String type= getIntent().getStringExtra("type");
+        Log.i("debug", "onResponse: Host-Data " +type);
+
+        Call<ModelLoket> call = apiService.getLoketbyCat(type);
+
+        call.enqueue(new Callback<ModelLoket>() {
+            @Override
+            public void onResponse(Call<ModelLoket> call, Response<ModelLoket> response) {
+                if (response.isSuccessful()){
+                    ModelLoket databody = response.body();
+                    List<Loket> data = databody.getResult();
+                    id = new String[data.size()];
+                    title = new String[data.size()];
+                    image = new String[data.size()];
+                    int i = 0;
+                    for (Loket d: data) {
+                        id[i] = d.getId();
+                        title[i] = d.getTitle();
+                        image[i] = d.getImage();
+
+                        Loket h = new Loket(id[i],title[i],image[i]);
+                        loketList.add(h);
+
+                        Log.i("debug", "onResponse: Host-Data " +title[i]);
+                        i++;
+                    }
+                    updateNew(loketList);
+                }else{
+                    Log.i("debug", "onResponse: Host-Data Not Found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelLoket> call, Throwable throwable) {
+                Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
+            }
+        });
+    }
+
+    private void updateNew(List<Loket> loketList) {
+        mAdapter = new LoketAdapter(loketList, ProductActivity.this, Tag);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+    }
 
     private void changeActionBarTitle(ActionBar actionBar) {
         // Create a LayoutParams for TextView
@@ -82,35 +149,35 @@ public class ProductActivity extends BaseActivity {
         actionBar.setCustomView(tv);
     }
 
-    private void setUpRecyclerView() {
-        data = new Data();
-        mAdapter = new ProductAdapter(data.getProductList(), ProductActivity.this, Tag);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-    }
-
-    private void setUpGridRecyclerView() {
-        data = new Data();
-        mAdapter = new ProductAdapter(data.getProductList(), ProductActivity.this, Tag);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-    }
-
-    public void onToggleClicked(View view) {
-        if (Tag.equalsIgnoreCase("List")) {
-            Tag = "Grid";
-            setUpGridRecyclerView();
-        } else {
-            Tag = "List";
-            setUpRecyclerView();
-        }
-    }
+//    private void setUpRecyclerView() {
+//        data = new Data();
+//        mAdapter = new ProductAdapter(data.getProductList(), ProductActivity.this, Tag);
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerView.setLayoutManager(mLayoutManager);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(mAdapter);
+//
+//    }
+//
+//    private void setUpGridRecyclerView() {
+//        data = new Data();
+//        mAdapter = new ProductAdapter(data.getProductList(), ProductActivity.this, Tag);
+//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
+//        recyclerView.setLayoutManager(mLayoutManager);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.setAdapter(mAdapter);
+//
+//    }
+//
+//    public void onToggleClicked(View view) {
+//        if (Tag.equalsIgnoreCase("List")) {
+//            Tag = "Grid";
+//            setUpGridRecyclerView();
+//        } else {
+//            Tag = "List";
+//            setUpRecyclerView();
+//        }
+//    }
 
 
     @Override

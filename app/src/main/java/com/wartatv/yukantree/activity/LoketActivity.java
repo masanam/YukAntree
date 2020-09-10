@@ -20,13 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wartatv.yukantree.R;
-import com.wartatv.yukantree.adapter.HostAdapter;
+import com.wartatv.yukantree.adapter.LoketAdapter;
 import com.wartatv.yukantree.api.BaseApiService;
 import com.wartatv.yukantree.api.RetrofitClient;
 import com.wartatv.yukantree.helper.Converter;
 import com.wartatv.yukantree.helper.Data;
-import com.wartatv.yukantree.model.ModelProduct;
-import com.wartatv.yukantree.model.Product;
+import com.wartatv.yukantree.model.ModelLoket;
+import com.wartatv.yukantree.model.ModelLoket;
+import com.wartatv.yukantree.model.Loket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +40,11 @@ import retrofit2.Response;
  * Created by .
  * www.wartatv.com
  */
-public class HostActivity extends BaseActivity {
+public class LoketActivity extends BaseActivity {
     private static int cart_count = 0;
-    Data data;
-    HostAdapter mAdapter;
+    LoketAdapter mAdapter;
     String Tag = "List";
     private RecyclerView recyclerView;
-
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -67,39 +66,29 @@ public class HostActivity extends BaseActivity {
     public void getproductList(){
         BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
         String type= getIntent().getStringExtra("type");
-        Call<ModelProduct> call = apiService.getHostbyCat(type);
+        Call<ModelLoket> call = apiService.getLoketbyCat(type);
 
-        call.enqueue(new Callback<ModelProduct>() {
+        call.enqueue(new Callback<ModelLoket>() {
             @Override
-            public void onResponse(Call<ModelProduct> call, Response<ModelProduct> response) {
+            public void onResponse(Call<ModelLoket> call, Response<ModelLoket> response) {
                 if (response.isSuccessful()){
-                    ModelProduct databody = response.body();
-                    List<Product> productList = databody.getResult();
-
-                    mAdapter = new HostAdapter(productList, HostActivity.this, Tag);
+                    ModelLoket databody = response.body();
+                    List<Loket> loketList = databody.getResult();
+                    mAdapter = new LoketAdapter(loketList, LoketActivity.this, Tag);
                     RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                     recyclerView.setLayoutManager(mLayoutManager);
                     recyclerView.setItemAnimator(new DefaultItemAnimator());
                     recyclerView.setAdapter(mAdapter);
-
                 }else{
-                    Log.i("debug", "onResponse: Host-Data Not Found");
+                    Log.i("debug", "onResponse: Loket-Data Not Found");
                 }
             }
 
             @Override
-            public void onFailure(Call<ModelProduct> call, Throwable throwable) {
+            public void onFailure(Call<ModelLoket> call, Throwable throwable) {
                 Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
             }
         });
-    }
-
-    private void updateNew(List<Product> productList) {
-        mAdapter = new HostAdapter(productList, HostActivity.this, Tag);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
     }
 
     private void changeActionBarTitle(ActionBar actionBar) {
@@ -113,7 +102,7 @@ public class HostActivity extends BaseActivity {
         tv.setGravity(Gravity.CENTER);
         tv.setTypeface(null, Typeface.BOLD);
         // Set text to display in TextView
-        tv.setText("Merchants"); // ActionBar title text
+        tv.setText("Lokets"); // ActionBar title text
         tv.setTextSize(20);
 
         // Set the text color of TextView to red
@@ -128,7 +117,7 @@ public class HostActivity extends BaseActivity {
 
 
 //    private void setUpRecyclerView() {
-//        mAdapter = new HostAdapter(data.getProductList(), HostActivity.this, Tag);
+//        mAdapter = new LoketAdapter(data.getLoketList(), LoketActivity.this, Tag);
 //        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 //        recyclerView.setLayoutManager(mLayoutManager);
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -137,7 +126,7 @@ public class HostActivity extends BaseActivity {
 //
 //    private void setUpGridRecyclerView() {
 //        data = new Data();
-//        mAdapter = new ProductAdapter(data.getProductList(), HostActivity.this, Tag);
+//        mAdapter = new LoketAdapter(data.getLoketList(), LoketActivity.this, Tag);
 //        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
 //        recyclerView.setLayoutManager(mLayoutManager);
 //        recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -162,7 +151,7 @@ public class HostActivity extends BaseActivity {
             case android.R.id.home:
                 // todo: goto back activity from here
 
-                Intent intent = new Intent(HostActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoketActivity.this, MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -182,7 +171,7 @@ public class HostActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem menuItem = menu.findItem(R.id.cart_action);
-        menuItem.setIcon(Converter.convertLayoutToImage(HostActivity.this, cart_count, R.drawable.ic_shopping_basket));
+        menuItem.setIcon(Converter.convertLayoutToImage(LoketActivity.this, cart_count, R.drawable.ic_shopping_basket));
         return true;
     }
 

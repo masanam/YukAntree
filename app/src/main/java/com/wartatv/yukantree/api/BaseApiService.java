@@ -3,6 +3,9 @@ package com.wartatv.yukantree.api;
 import com.wartatv.yukantree.model.ModelCategory;
 import com.wartatv.yukantree.model.ModelLoket;
 import com.wartatv.yukantree.model.ModelProduct;
+import com.wartatv.yukantree.model.ModelSlider;
+import com.wartatv.yukantree.model.ModelUser;
+import com.wartatv.yukantree.model.ResponseLogin;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -11,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+
 /**
  * Created by wartatv
  */
@@ -18,8 +22,8 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("login")
-    Call<ResponseBody> loginRequest(@Field("email") String email,
-                                    @Field("password") String password);
+    Call<ResponseLogin> loginRequest(@Field("email") String email,
+                                     @Field("password") String password);
 
     @FormUrlEncoded
     @POST("signup")
@@ -27,6 +31,9 @@ public interface BaseApiService {
                                        @Field("email") String email,
                                        @Field("password") String password,
                                        @Field("password_confirmation") String password_confirmation);
+
+    @GET("admin/sliders")
+    Call<ModelSlider> getSlider();
 
     @GET("admin/categories")
     Call<ModelCategory> getCategory();
@@ -37,17 +44,22 @@ public interface BaseApiService {
     @GET("admin/lokets")
     Call<ModelLoket> getLoket();
 
-//    @GET("dosen/{namadosen}")
-//    Call<ResponseDosenDetail> getDetailDosen(@Path("namadosen") String namadosen);
-//
-//    @GET("matkul")
-//    Call<ResponseMatkul> getSemuaMatkul();
-//
-//    @FormUrlEncoded
-//    @POST("matkul")
-//    Call<ResponseBody> simpanMatkulRequest(@Field("nama_dosen") String namadosen,
-//                                           @Field("matkul") String namamatkul);
-//
-//    @DELETE("matkul/{idmatkul}")
-//    Call<ResponseBody> deteleMatkul(@Path("idmatkul") String idmatkul);
+    @FormUrlEncoded
+    @POST("admin/getHostbyCat")
+    Call<ModelProduct> getHostbyCat(
+            @Field("type") String type
+    );
+
+    @FormUrlEncoded
+    @POST("admin/getLoketbyCat")
+    Call<ModelLoket> getLoketbyCat(
+            @Field("type") String type
+    );
+
+    @FormUrlEncoded
+    @POST("admin/getUserProfile")
+    Call<ModelUser> getUserProfile(
+            @Field("email") String email
+    );
+
 }

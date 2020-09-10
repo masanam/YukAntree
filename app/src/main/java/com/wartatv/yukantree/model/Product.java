@@ -22,11 +22,17 @@ public class Product {
     @SerializedName("description")
     private String description;
 
-    @SerializedName("attribute")
-    private String attribute;
+    @SerializedName("address")
+    private String address;
 
-    @SerializedName("price")
-    private String price;
+    @SerializedName("city")
+    private String city;
+
+    @SerializedName("contact")
+    private String contact;
+
+    @SerializedName("phone")
+    private String phone;
 
     @SerializedName("discount")
     private String discount;
@@ -43,28 +49,30 @@ public class Product {
         this.image = image;
     }
 
-    public Product(String id, String categoryId, String title, String description, String attribute, String price, String discount, String image) {
+    public Product(String id, String categoryId, String title, String description, String address, String phone, String discount, String image) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.description = description;
-        this.attribute = attribute;
-        this.price = price;
+        this.address = address;
+        this.phone = phone;
         this.discount = discount;
         this.image = image;
     }
 
-    public Product(String id, String categoryId, String title, String description, String attribute, String currency, String price, String discount, String image) {
+    public Product(String id, String categoryId, String title, String description, String address, String currency, String city, String contact,String phone, String discount, String image) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
         this.description = description;
-        this.attribute = attribute;
+        this.address = address;
         this.currency = currency;
-        this.price = price;
+        this.phone = phone;
         this.discount = discount;
+        this.city = city;
+        this.contact = contact;
         this.image = image;
-    }
+   }
 
     public String getId() {
         return id;
@@ -98,20 +106,20 @@ public class Product {
         this.description = description;
     }
 
-    public String getAttribute() {
-        return attribute;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getPrice() {
-        return price;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getDiscount() {
@@ -136,5 +144,21 @@ public class Product {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }
