@@ -13,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 
 /**
@@ -60,6 +61,20 @@ public interface BaseApiService {
     @POST("admin/getUserProfile")
     Call<ModelUser> getUserProfile(
             @Field("email") String email
+    );
+
+    @FormUrlEncoded
+    @POST("admin/updateProfile/{email}")
+    Call<ModelUser> updateProfile(
+            @Path("email") String email,
+            @Field("name") String name,
+            @Field("dateofBirth") String dateofBirth,
+            @Field("phone") String phone,
+            @Field("address") String address,
+            @Field("city") String city,
+            @Field("gender") String gender,
+            @Field("blood") String blood,
+            @Field("idKtp") String idKtp
     );
 
 }

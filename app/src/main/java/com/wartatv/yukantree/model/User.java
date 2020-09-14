@@ -29,9 +29,8 @@ public class User {
     private String blood;
     @SerializedName("dateOfBirth")
     private String dateOfBirth;
-
-
-
+    @SerializedName("photo")
+    private String photo;
 
     public User(String name, String email, String s, String email1) {
     }
@@ -123,6 +122,23 @@ public class User {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    public String getBlood() {
+        return blood;
+    }
+
+    public void setBlood(String blood) {
+        this.blood = blood;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
 
 
 }

@@ -9,8 +9,6 @@ public class ModelUser {
     private String message;
     @SerializedName("data")
     private List<User> data;
-    @SerializedName("userAddress")
-    private UserAddress userAddress;
 
     public String getMessage() {
         return message;
@@ -20,12 +18,13 @@ public class ModelUser {
         this.message = message;
     }
 
-    public List<User> getResult() { return data; }
-
-    public UserAddress getData() { return userAddress; }
+    public List<User> getResult() {
+        return data;
+    }
 
     public void setResult(List<User> data) {
         this.data = data;
     }
+
 
 }

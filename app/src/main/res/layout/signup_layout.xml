@@ -97,7 +97,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@android:color/transparent"
-            android:digits="089688045345"
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:hint="@string/mobileNumber"

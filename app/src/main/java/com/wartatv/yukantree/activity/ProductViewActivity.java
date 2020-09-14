@@ -27,7 +27,9 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wartatv.yukantree.activity.BaseActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class ProductViewActivity extends BaseActivity {
     private static int cart_count = 0;
     public TextView quantity, inc, dec;
     String _id, _title, _image, _description, _price, _currency, _discount, _attribute;
-    TextView id, title, description, price, currency, discount, attribute;
+    TextView id, title, description, price, currency, discount, attribute, dateTimeDisplay;
     ImageView imageView;
     ProgressBar progressBar;
     LinearLayout addToCart, share;
@@ -46,12 +48,13 @@ public class ProductViewActivity extends BaseActivity {
     List<Cart> cartList = new ArrayList<>();
     int cartId;
     Cart cart;
-
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_view);
-
 
         Intent intent = getIntent();
 
@@ -88,20 +91,26 @@ public class ProductViewActivity extends BaseActivity {
         quantity = findViewById(R.id.quantity);
         inc = findViewById(R.id.quantity_plus);
         dec = findViewById(R.id.quantity_minus);
-
-        cartList = getCartList();
+        dateTimeDisplay = findViewById(R.id.date_display);
+//        cartList = getCartList()
         title.setText(_title);
         description.setText(_description);
         price.setText(_price);
         currency.setText(_currency);
         attribute.setText(_attribute);
-        discount.setText(_discount);
+        discount.setText("Open");
         Log.d(TAG, "Discount : " + _discount);
-        if (_discount != null || _discount.length() != 0 || _discount != "") {
-            discount.setVisibility(View.VISIBLE);
-        } else {
-            discount.setVisibility(View.GONE);
-        }
+//        if (_discount != null || _discount.length() != 0 || _discount != "") {
+//            discount.setVisibility(View.VISIBLE);
+//        } else {
+//            discount.setVisibility(View.GONE);
+//        }
+
+        calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("EEE, d MMMM yyyy HH:mm:ss");
+        date = df.format(calendar.getTime());
+        dateTimeDisplay.setText(date);
+
         if (_image != null) {
             Picasso.get().load(_image).error(R.drawable.no_image).into(imageView, new Callback() {
                 @Override
@@ -151,7 +160,7 @@ public class ProductViewActivity extends BaseActivity {
                 cartList.add(cart);
                 String cartStr = gson.toJson(cartList);
                 //Log.d("CART", cartStr);
-                localStorage.setCart(cartStr);
+//                localStorage.setCart(cartStr);
                 onAddProduct();
                 addToCart.setVisibility(View.GONE);
                 quantityLL.setVisibility(View.VISIBLE);
@@ -177,7 +186,7 @@ public class ProductViewActivity extends BaseActivity {
                 cartList.get(cartId).setPrice(_price);
                 String cartStr = gson.toJson(cartList);
                 //Log.d("CART", cartStr);
-                localStorage.setCart(cartStr);
+//                localStorage.setCart(cartStr);
             }
         });
 
@@ -201,7 +210,7 @@ public class ProductViewActivity extends BaseActivity {
                     cartList.get(cartId).setPrice(_price);
                     String cartStr = gson.toJson(cartList);
                     //Log.d("CART", cartStr);
-                    localStorage.setCart(cartStr);
+//                    localStorage.setCart(cartStr);
                 }
             }
         });

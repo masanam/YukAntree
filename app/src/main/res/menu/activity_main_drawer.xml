@@ -20,14 +20,6 @@
             android:id="@+id/nav_offers"
             android:icon="@drawable/ic_discount"
             android:title="Offers" />
-        <item
-            android:id="@+id/nav_new_product"
-            android:icon="@drawable/ic_list"
-            android:title="New Products" />
-        <item
-            android:id="@+id/nav_popular_products"
-            android:icon="@drawable/ic_grid"
-            android:title="Popular Products" />
     </group>
 
 
@@ -38,6 +30,14 @@
             android:id="@+id/nav_category"
             android:icon="@drawable/ic_options"
             android:title="Category" />
+        <item
+            android:id="@+id/nav_new_product"
+            android:icon="@drawable/ic_list"
+            android:title="Merchant" />
+        <item
+            android:id="@+id/nav_popular_products"
+            android:icon="@drawable/ic_grid"
+            android:title="Loket" />
         <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search_black_24dp"
@@ -51,11 +51,11 @@
         <item
             android:id="@+id/nav_my_order"
             android:icon="@drawable/ic_listed_items"
-            android:title="My Order" />
+            android:title="History" />
         <item
             android:id="@+id/nav_my_cart"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
-            android:title="My Cart" />
+            android:icon="@drawable/ic_coupon"
+            android:title="My List" />
     </group>
 
 

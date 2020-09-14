@@ -3,7 +3,7 @@
     android:id="@+id/toast_root"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark"
+    android:background="@color/blue_200"
     android:padding="5dp">
 
     <TextView

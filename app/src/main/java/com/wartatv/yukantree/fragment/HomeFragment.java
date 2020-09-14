@@ -40,7 +40,9 @@ import com.wartatv.yukantree.model.Product;
 import com.wartatv.yukantree.model.Slider;
 import com.wartatv.yukantree.util.Preferences;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,7 +73,9 @@ public class HomeFragment extends Fragment {
     String[] id;
     String[] title;
     String[] image;
-
+    private Calendar calendar;
+    private SimpleDateFormat dateFormat;
+    private String date;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -92,6 +96,11 @@ public class HomeFragment extends Fragment {
         getPopularList();
         getSliderList();
 
+        TextView dateTimeDisplay = view.findViewById(R.id.txt_date_display);
+        calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("EEE, d MMMM yyyy");
+        date = df.format(calendar.getTime());
+        dateTimeDisplay.setText(date);
 
         TextView nama = view.findViewById(R.id.fullName);
         nama.setText(Preferences.getLoggedInUser(getActivity()));

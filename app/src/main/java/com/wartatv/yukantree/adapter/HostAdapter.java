@@ -84,6 +84,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
         holder.attribute.setText(product.getCity());
         holder.host_address.setText(product.getAddress());
         holder.host_phone.setText(product.getPhone());
+        holder.shopNow.setText("get Loket");
 
         Picasso.get().load(product.getImage()).error(R.drawable.no_image).into(holder.imageView, new Callback() {
             @Override
@@ -113,6 +114,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductActivity.class);
+                intent.putExtra("type",productList.get(position).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }
@@ -122,6 +124,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductActivity.class);
+                intent.putExtra("type",productList.get(position).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
             }

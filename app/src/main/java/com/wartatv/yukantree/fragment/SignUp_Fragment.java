@@ -20,18 +20,14 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.gson.Gson;
 import com.wartatv.yukantree.R;
 import com.wartatv.yukantree.activity.LoginRegisterActivity;
 import com.wartatv.yukantree.activity.MainActivity;
 import com.wartatv.yukantree.api.BaseApiService;
 import com.wartatv.yukantree.api.RetrofitClient;
-import com.wartatv.yukantree.model.User;
 import com.wartatv.yukantree.util.CustomToast;
 import com.wartatv.yukantree.util.Preferences;
 import com.wartatv.yukantree.util.Utils;
-import com.wartatv.yukantree.util.localstorage.LocalStorage;
-
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,16 +43,11 @@ import retrofit2.Response;
  */
 public class SignUp_Fragment extends Fragment implements OnClickListener {
     private static View view;
-    private static EditText fullName, emailId, mobileNumber,
-            password;
+    private static EditText fullName, emailId, mobileNumber, password;
     private static TextView login;
     private static Button signUpButton;
     private static CheckBox terms_conditions;
     ProgressDialog progressDialog;
-    User user;
-    LocalStorage localStorage;
-    Gson gson;
-    BaseApiService mApiService;
 
     public SignUp_Fragment() {
 
@@ -129,7 +120,6 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
         final String getMobileNumber = mobileNumber.getText().toString();
         final String getPassword = password.getText().toString();
         final String getPasswordConfirm = password.getText().toString();
-        final String getAddres = password.getText().toString();
 
         // Pattern match for email id
         Pattern p = Pattern.compile(Utils.regEx);
@@ -168,15 +158,11 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
-                            Log.i("debug", "onResponse: BERHASIL");
-//                            user = new User(getFullName, getEmailId, getMobileNumber, getPassword, getAddres);
-//                            gson = new Gson();
-//                            String userString = gson.toJson(user);
-//                            localStorage = new LocalStorage(getContext());
-//                            localStorage.createUserLoginSession(userString);
-
                             Preferences.setRegisteredUser(getActivity(),getEmailId);
                             Preferences.setRegisteredPass(getActivity(),getPassword);
+                            Preferences.setLoggedInUser(getActivity(),getFullName);
+                            Preferences.setLoggedInStatus(getActivity(),true);
+
                             progressDialog.setMessage("Registering Data....");
                             progressDialog.show();
                             Handler mHand = new Handler();
@@ -188,7 +174,8 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
                                     getActivity().finish();
                                     getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                                 }
-                            }, 500);
+                            }, 1000);
+                            Log.i("debug", "onResponse: BERHASIL");
                         } else {
                             Log.i("debug", "onResponse: GA BERHASIL");
                             progressDialog.dismiss();
@@ -207,103 +194,3 @@ public class SignUp_Fragment extends Fragment implements OnClickListener {
     }
 
 }
-
-    /*
-    private void checkValidation() {
-        String getFullName = fullName.getText().toString();
-        String getEmailId = emailId.getText().toString();
-        String getMobileNumber = mobileNumber.getText().toString();
-        String getPassword = password.getText().toString();
-        String getPasswordConfirm = password.getText().toString();
-
-        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
-        Call<ResponseBody> call = apiService.registerRequest(
-                getFullName,
-                getEmailId,
-                getPassword,getPasswordConfirm
-        );
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    if (response.isSuccessful()){
-                        Log.i("debug", "onResponse: BERHASIL");
-                                    user = new User("1", getFullName, getEmailId, getMobileNumber, getPassword);
-            gson = new Gson();
-            String userString = gson.toJson(user);
-            localStorage = new LocalStorage(getContext());
-            localStorage.createUserLoginSession(userString);
-            progressDialog.setMessage("Registering Data....");
-            progressDialog.show();
-            Handler mHand = new Handler();
-            mHand.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                            startActivity(new Intent(getActivity(), MainActivity.class));
-                            getActivity().finish();
-                            getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                        }
-                    }, 5000);
-                    } else {
-                        Log.i("debug", "onResponse: GA BERHASIL");
-                        progressDialog.dismiss();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("debug", "onFailure: ERROR > " + t.getMessage());
-                new CustomToast().Show_Toast(getActivity(), view,
-                        "Gagal");
-            }
-        });
-
-    }
-
-     */
-
-    /* Check Validation Method
-    private void checkValidation() {
-        // Get all edittext texts
-//        String getFullName = fullName.getText().toString();
-//        String getEmailId = emailId.getText().toString();
-//        String getMobileNumber = mobileNumber.getText().toString();
-//        String getPassword = password.getText().toString();
-//        // Pattern match for email id
-//        Pattern p = Pattern.compile(Utils.regEx);
-//        Matcher m = p.matcher(getEmailId);
-
-
-        mApiService.registerRequest(fullName.getText().toString(),
-                emailId.getText().toString(),
-                password.getText().toString()
-                )
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
-                            Log.i("debug", "onResponse: BERHASIL");
-                            progressDialog.dismiss();
-                                    new CustomToast().Show_Toast(getActivity(), view,
-                                            "Berhasil");
-                                    startActivity(new Intent(getActivity(), MainActivity.class));
-
-                        } else {
-                            Log.i("debug", "onResponse: GA BERHASIL");
-                            progressDialog.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("debug", "onFailure: ERROR > " + t.getMessage());
-                        new CustomToast().Show_Toast(getActivity(), view,"Koneksi Bermasalah");
-                    }
-                });
-
-
-    }
-}
-*/

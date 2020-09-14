@@ -199,8 +199,6 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
                 intent.putExtra("attribute", product.getAttribute());
                 intent.putExtra("discount", product.getDiscount());
                 intent.putExtra("description", product.getDescription());
-
-
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }

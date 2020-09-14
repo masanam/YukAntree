@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import com.wartatv.yukantree.R;
 import com.wartatv.yukantree.activity.BaseActivity;
 import com.wartatv.yukantree.activity.LoketActivity;
+import com.wartatv.yukantree.activity.ProductViewActivity;
 import com.wartatv.yukantree.model.Cart;
 import com.wartatv.yukantree.model.Loket;
 import com.wartatv.yukantree.model.Loket;
@@ -83,6 +84,8 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
         holder.price.setText(product.getPrice());
         holder.currency.setText(product.getCurrency());
         holder.attribute.setText(product.getAttribute());
+        holder.shopNow.setText("get List");
+
         Picasso.get().load(product.getImage()).error(R.drawable.no_image).into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -110,8 +113,16 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LoketActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(context, ProductViewActivity.class);
+                intent.putExtra("id", product.getId());
+                intent.putExtra("title", product.getTitle());
+                intent.putExtra("image", product.getImage());
+                intent.putExtra("price", product.getPrice());
+                intent.putExtra("currency", product.getCurrency());
+                intent.putExtra("attribute", product.getAttribute());
+                intent.putExtra("discount", product.getDiscount());
+                intent.putExtra("description", product.getDescription());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }
         });
@@ -119,8 +130,16 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, LoketActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(context, ProductViewActivity.class);
+                intent.putExtra("id", product.getId());
+                intent.putExtra("title", product.getTitle());
+                intent.putExtra("image", product.getImage());
+                intent.putExtra("price", product.getPrice());
+                intent.putExtra("currency", product.getCurrency());
+                intent.putExtra("attribute", product.getAttribute());
+                intent.putExtra("discount", product.getDiscount());
+                intent.putExtra("description", product.getDescription());
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }
         });

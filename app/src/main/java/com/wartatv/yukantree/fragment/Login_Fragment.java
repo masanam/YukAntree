@@ -211,7 +211,6 @@ public class Login_Fragment extends Fragment implements OnClickListener {
         super.onStart();
         if (Preferences.getLoggedInStatus(getActivity())){
             startActivity(new Intent(getActivity(),MainActivity.class));
-            startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         }
     }
@@ -271,16 +270,15 @@ public class Login_Fragment extends Fragment implements OnClickListener {
                                         Preferences.setLoggedInUser(getActivity(),fullname);
                                         Preferences.setLoggedInStatus(getActivity(),true);
 
-                                        String username = Preferences.getLoggedInUser(getActivity());
-
-                                        progressDialog.dismiss();
                                                     startActivity(new Intent(getActivity(), MainActivity.class));
                                                     getActivity().finish();
                                                     getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                                         } else {
                                             Log.i("debug", "onResponse: GA BERHASIL");
                                             new CustomToast().Show_Toast(getActivity(), view,
-                                                    "Login Gagal");                                   }
+                                                    "Login Gagal");
+                                    }
+
                                 }
 
                                 @Override

@@ -136,7 +136,7 @@ public class ProductActivity extends BaseActivity {
         tv.setGravity(Gravity.CENTER);
         tv.setTypeface(null, Typeface.BOLD);
         // Set text to display in TextView
-        tv.setText("Products"); // ActionBar title text
+        tv.setText("Lokets"); // ActionBar title text
         tv.setTextSize(20);
 
         // Set the text color of TextView to red
@@ -148,37 +148,6 @@ public class ProductActivity extends BaseActivity {
         // Finally, set the newly created TextView as ActionBar custom view
         actionBar.setCustomView(tv);
     }
-
-//    private void setUpRecyclerView() {
-//        data = new Data();
-//        mAdapter = new ProductAdapter(data.getProductList(), ProductActivity.this, Tag);
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(mAdapter);
-//
-//    }
-//
-//    private void setUpGridRecyclerView() {
-//        data = new Data();
-//        mAdapter = new ProductAdapter(data.getProductList(), ProductActivity.this, Tag);
-//        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(mAdapter);
-//
-//    }
-//
-//    public void onToggleClicked(View view) {
-//        if (Tag.equalsIgnoreCase("List")) {
-//            Tag = "Grid";
-//            setUpGridRecyclerView();
-//        } else {
-//            Tag = "List";
-//            setUpRecyclerView();
-//        }
-//    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
