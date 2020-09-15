@@ -23,18 +23,33 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imgProfile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
                     android:src="@drawable/no_image"
                     app:civ_border_color="@color/gray_btn_bg_color"
                     app:civ_border_width="2dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_plus"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignBottom="@id/imgProfile"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_plus" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -121,16 +121,16 @@ public class Data {
     }
 
     public List<Loket> getPopularList() {
-        Loket loket = new Loket("6", "3", "Baby Oil", "", "500 Ml", "Rs.", "31", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
-        popularList.add(loket);
-        loket = new Loket("7", "4", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
-        popularList.add(loket);
-        loket = new Loket("8", "4", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
-        popularList.add(loket);
-        loket = new Loket("9", "5", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
-        popularList.add(loket);
-        loket = new Loket("10", "5", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
-        popularList.add(loket);
+//        Loket loket = new Loket("6", "3", "Baby Oil", "", "500 Ml", "Rs.", "31", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
+//        popularList.add(loket);
+//        loket = new Loket("7", "4", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
+//        popularList.add(loket);
+//        loket = new Loket("8", "4", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
+//        popularList.add(loket);
+//        loket = new Loket("9", "5", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
+//        popularList.add(loket);
+//        loket = new Loket("10", "5", "Apple", "", "1 Kg", "Rs.", "20", "", "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png");
+//        popularList.add(loket);
         return popularList;
     }
 

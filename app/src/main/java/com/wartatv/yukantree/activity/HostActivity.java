@@ -1,18 +1,21 @@
 package com.wartatv.yukantree.activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -75,13 +78,18 @@ public class HostActivity extends BaseActivity {
                 if (response.isSuccessful()){
                     ModelProduct databody = response.body();
                     List<Product> productList = databody.getResult();
+                    if (productList.size() > 0) {
+                        mAdapter = new HostAdapter(productList, HostActivity.this, Tag);
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        recyclerView.setLayoutManager(mLayoutManager);
+                        recyclerView.setItemAnimator(new DefaultItemAnimator());
+                        recyclerView.setAdapter(mAdapter);
+                    }else{
+                        Toast toast = Toast.makeText(HostActivity.this, "Data Empty",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
 
-                    mAdapter = new HostAdapter(productList, HostActivity.this, Tag);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    recyclerView.setLayoutManager(mLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(mAdapter);
-
+                    }
                 }else{
                     Log.i("debug", "onResponse: Host-Data Not Found");
                 }

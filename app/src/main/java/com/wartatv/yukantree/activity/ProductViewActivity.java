@@ -17,20 +17,32 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.wartatv.yukantree.R;
+import com.wartatv.yukantree.adapter.LoketAdapter;
+import com.wartatv.yukantree.api.BaseApiService;
+import com.wartatv.yukantree.api.RetrofitClient;
 import com.wartatv.yukantree.helper.Converter;
 import com.wartatv.yukantree.model.Cart;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.wartatv.yukantree.activity.BaseActivity;
+import com.wartatv.yukantree.model.Loket;
+import com.wartatv.yukantree.model.ModelLoket;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by .
@@ -56,17 +68,6 @@ public class ProductViewActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_view);
 
-        Intent intent = getIntent();
-
-        _id = intent.getStringExtra("id");
-        _title = intent.getStringExtra("title");
-        _image = intent.getStringExtra("image");
-        _description = intent.getStringExtra("description");
-        _price = intent.getStringExtra("price");
-        _currency = intent.getStringExtra("currency");
-        _discount = intent.getStringExtra("discount");
-        _attribute = intent.getStringExtra("attribute");
-
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
         changeActionBarTitle(getSupportActionBar());
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -79,8 +80,8 @@ public class ProductViewActivity extends BaseActivity {
 
         title = findViewById(R.id.apv_title);
         description = findViewById(R.id.apv_description);
-        currency = findViewById(R.id.apv_currency);
-        price = findViewById(R.id.apv_price);
+//        currency = findViewById(R.id.apv_currency);
+//        price = findViewById(R.id.apv_price);
         attribute = findViewById(R.id.apv_attribute);
         discount = findViewById(R.id.apv_discount);
         imageView = findViewById(R.id.apv_image);
@@ -92,57 +93,38 @@ public class ProductViewActivity extends BaseActivity {
         inc = findViewById(R.id.quantity_plus);
         dec = findViewById(R.id.quantity_minus);
         dateTimeDisplay = findViewById(R.id.date_display);
-//        cartList = getCartList()
-        title.setText(_title);
-        description.setText(_description);
-        price.setText(_price);
-        currency.setText(_currency);
-        attribute.setText(_attribute);
+
         discount.setText("Open");
-        Log.d(TAG, "Discount : " + _discount);
+//        Log.d(TAG, "Discount : " + _discount);
 //        if (_discount != null || _discount.length() != 0 || _discount != "") {
 //            discount.setVisibility(View.VISIBLE);
 //        } else {
 //            discount.setVisibility(View.GONE);
 //        }
-
+        getLoketDetail();
         calendar = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("EEE, d MMMM yyyy HH:mm:ss");
         date = df.format(calendar.getTime());
         dateTimeDisplay.setText(date);
 
-        if (_image != null) {
-            Picasso.get().load(_image).error(R.drawable.no_image).into(imageView, new Callback() {
-                @Override
-                public void onSuccess() {
-                    progressBar.setVisibility(View.GONE);
-                }
 
-                @Override
-                public void onError(Exception e) {
-                    progressBar.setVisibility(View.GONE);
-                }
-            });
-        }
-
-        if (!cartList.isEmpty()) {
-            for (int i = 0; i < cartList.size(); i++) {
-                if (cartList.get(i).getId().equalsIgnoreCase(_id)) {
-                    addToCart.setVisibility(View.GONE);
-                    quantityLL.setVisibility(View.VISIBLE);
-                    quantity.setText(cartList.get(i).getQuantity());
-                    cartId = i;
-
-                }
-            }
-        }
+//        if (!cartList.isEmpty()) {
+//            for (int i = 0; i < cartList.size(); i++) {
+//                if (cartList.get(i).getId().equalsIgnoreCase(_id)) {
+//                    addToCart.setVisibility(View.GONE);
+//                    quantityLL.setVisibility(View.VISIBLE);
+//                    quantity.setText(cartList.get(i).getQuantity());
+//                    cartId = i;
+//
+//                }
+//            }
+//        }
 
 
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEntry = _image + "\n" + _title + "\n" + _description + "\n" + _attribute + "-" + _currency + _price + "(" + _discount + ")";
-
+                String userEntry = _image + "\n" + _title + "\n" + _description + "\n" + _attribute + "-" + "(" + _discount + ")";
                 Intent textShareIntent = new Intent(Intent.ACTION_SEND);
                 textShareIntent.putExtra(Intent.EXTRA_TEXT, userEntry);
                 textShareIntent.setType("text/plain");
@@ -173,7 +155,6 @@ public class ProductViewActivity extends BaseActivity {
             public void onClick(View view) {
                 _price = price.getText().toString();
 
-
                 // int total_item = Integer.parseInt(cartList.get(cartId).getQuantity());
                 int total_item = Integer.parseInt(quantity.getText().toString());
                 total_item++;
@@ -203,7 +184,6 @@ public class ProductViewActivity extends BaseActivity {
                     Log.d("totalItem", total_item + "");
                     String subTotal = String.valueOf(Double.parseDouble(_price) * total_item);
 
-
                     cartList.get(cartId).setQuantity(quantity.getText().toString());
                     cartList.get(cartId).setSubTotal(subTotal);
                     cartList.get(cartId).setAttribute(attribute.getText().toString());
@@ -218,7 +198,55 @@ public class ProductViewActivity extends BaseActivity {
 
     }
 
+    public void getLoketDetail(){
+        BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
+        Intent intent = getIntent();
+        _id = intent.getStringExtra("id");
+        Call<ModelLoket> call = apiService.getLoketDetail(_id);
 
+        call.enqueue(new retrofit2.Callback<ModelLoket>() {
+            @Override
+            public void onResponse(Call<ModelLoket> call, Response<ModelLoket> response) {
+                if (response.isSuccessful()){
+                    ModelLoket databody = response.body();
+                    List<Loket> loketList = databody.getResult();
+                    if (loketList.size() > 0) {
+                        _title =loketList.get(0).getTitle();
+                        title.setText(loketList.get(0).getTitle());
+                        description.setText(loketList.get(0).getTitle());
+                        attribute.setText(loketList.get(0).getTitle());
+
+                        if ( loketList.get(0).getImage() != null) {
+                            Picasso.get().load(loketList.get(0).getImage()).error(R.drawable.no_image).into(imageView, new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+                                    progressBar.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+                        Log.i("debug", "onResponse: Loket-Data"+ _id);
+
+                    } else {
+                        Toast toast = Toast.makeText(ProductViewActivity.this, "Data Empty",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }else{
+                    Log.i("debug", "onResponse: Loket-Data Not Found");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ModelLoket> call, Throwable throwable) {
+                Log.e("debug", "onFailure: ERROR > " + throwable.getMessage());
+            }
+        });
+    }
 
     private void changeActionBarTitle(ActionBar actionBar) {
         // Create a LayoutParams for TextView

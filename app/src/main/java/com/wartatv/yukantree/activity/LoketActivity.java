@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -74,11 +75,17 @@ public class LoketActivity extends BaseActivity {
                 if (response.isSuccessful()){
                     ModelLoket databody = response.body();
                     List<Loket> loketList = databody.getResult();
-                    mAdapter = new LoketAdapter(loketList, LoketActivity.this, Tag);
-                    RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                    recyclerView.setLayoutManager(mLayoutManager);
-                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-                    recyclerView.setAdapter(mAdapter);
+                    if (loketList.size() > 0) {
+                        mAdapter = new LoketAdapter(loketList, LoketActivity.this, Tag);
+                        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+                        recyclerView.setLayoutManager(mLayoutManager);
+                        recyclerView.setItemAnimator(new DefaultItemAnimator());
+                        recyclerView.setAdapter(mAdapter);
+                    } else {
+                        Toast toast = Toast.makeText(LoketActivity.this, "Data Empty",
+                                Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 }else{
                     Log.i("debug", "onResponse: Loket-Data Not Found");
                 }

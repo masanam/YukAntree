@@ -16,8 +16,8 @@ public class Loket {
     @SerializedName("image")
     private String image;
 
-    @SerializedName("categoryId")
-    private String categoryId;
+    @SerializedName("hostId")
+    private String hostId;
 
     @SerializedName("description")
     private String description;
@@ -34,6 +34,12 @@ public class Loket {
     @SerializedName("currency")
     private String currency;
 
+    @SerializedName("schedule")
+    private String schedule;
+
+    @SerializedName("quota")
+    private String quota;
+
     public Loket() {
     }
 
@@ -43,9 +49,9 @@ public class Loket {
         this.image = image;
     }
 
-    public Loket(String id, String categoryId, String title, String description, String attribute, String price, String discount, String image) {
+    public Loket(String id, String hostId, String title, String description, String attribute, String price, String discount, String image) {
         this.id = id;
-        this.categoryId = categoryId;
+        this.hostId = hostId;
         this.title = title;
         this.description = description;
         this.attribute = attribute;
@@ -54,9 +60,9 @@ public class Loket {
         this.image = image;
     }
 
-    public Loket(String id, String categoryId, String title, String description, String attribute, String currency, String price, String discount, String image) {
+    public Loket(String id, String hostId, String title, String description, String attribute, String currency, String price, String discount, String image) {
         this.id = id;
-        this.categoryId = categoryId;
+        this.hostId = hostId;
         this.title = title;
         this.description = description;
         this.attribute = attribute;
@@ -74,12 +80,12 @@ public class Loket {
         this.id = id;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public String gethostId() {
+        return hostId;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void sethostId(String hostId) {
+        this.hostId = hostId;
     }
 
     public String getTitle() {
@@ -137,4 +143,17 @@ public class Loket {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(String schedule) {  this.schedule = schedule;  }
+
+    public String getQuota() {
+        return quota;
+    }
+
+    public void setQuota(String quota) {  this.schedule = quota;  }
+
 }

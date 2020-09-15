@@ -58,6 +58,12 @@ public interface BaseApiService {
     );
 
     @FormUrlEncoded
+    @POST("admin/getLoketDetail")
+    Call<ModelLoket> getLoketDetail(
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
     @POST("admin/getUserProfile")
     Call<ModelUser> getUserProfile(
             @Field("email") String email
@@ -75,6 +81,17 @@ public interface BaseApiService {
             @Field("gender") String gender,
             @Field("blood") String blood,
             @Field("idKtp") String idKtp
+    );
+
+    @FormUrlEncoded
+    @POST("admin/transactions")
+    Call<ModelUser> AddAntri(
+            @Path("userId") String userId,
+            @Field("loketId") String loketId,
+            @Field("number") String number,
+            @Field("tanggal") String tanggal,
+            @Field("type") String type,
+            @Field("status") String status
     );
 
 }

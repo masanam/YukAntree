@@ -83,8 +83,7 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
         cartList = ((BaseActivity) context).getCartList();
 
         holder.title.setText(product.getTitle());
-        holder.price.setText(product.getPrice());
-        holder.attribute.setText(product.getAttribute());
+        holder.attribute.setText(product.getSchedule());
         Picasso.get().load(product.getImage()).error(R.drawable.no_image).into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -192,13 +191,13 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductViewActivity.class);
                 intent.putExtra("id", product.getId());
-                intent.putExtra("title", product.getTitle());
-                intent.putExtra("image", product.getImage());
-                intent.putExtra("price", product.getPrice());
-                intent.putExtra("currency", product.getCurrency());
-                intent.putExtra("attribute", product.getAttribute());
-                intent.putExtra("discount", product.getDiscount());
-                intent.putExtra("description", product.getDescription());
+//                intent.putExtra("title", product.getTitle());
+//                intent.putExtra("image", product.getImage());
+//                intent.putExtra("price", product.getPrice());
+//                intent.putExtra("currency", product.getCurrency());
+//                intent.putExtra("attribute", product.getAttribute());
+//                intent.putExtra("discount", product.getDiscount());
+//                intent.putExtra("description", product.getDescription());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }

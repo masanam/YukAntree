@@ -81,7 +81,7 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
         holder.quantity.setText("1");
 
         holder.title.setText(product.getTitle());
-        holder.price.setText(product.getPrice());
+        holder.price.setText(product.getId());
         holder.currency.setText(product.getCurrency());
         holder.attribute.setText(product.getAttribute());
         holder.shopNow.setText("get List");
@@ -100,7 +100,7 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
 
         if (!cartList.isEmpty()) {
             for (int i = 0; i < cartList.size(); i++) {
-                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
+                if (cartList.get(i).getId().equalsIgnoreCase(String.valueOf(product.getId()))) {
                     holder.shopNow.setVisibility(View.GONE);
                     holder.quantity_ll.setVisibility(View.VISIBLE);
                     holder.quantity.setText(cartList.get(i).getQuantity());
@@ -115,13 +115,13 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductViewActivity.class);
                 intent.putExtra("id", product.getId());
-                intent.putExtra("title", product.getTitle());
-                intent.putExtra("image", product.getImage());
-                intent.putExtra("price", product.getPrice());
-                intent.putExtra("currency", product.getCurrency());
-                intent.putExtra("attribute", product.getAttribute());
-                intent.putExtra("discount", product.getDiscount());
-                intent.putExtra("description", product.getDescription());
+//                intent.putExtra("title", product.getTitle());
+//                intent.putExtra("image", product.getImage());
+//                intent.putExtra("price", product.getPrice());
+//                intent.putExtra("currency", product.getCurrency());
+//                intent.putExtra("attribute", product.getAttribute());
+//                intent.putExtra("discount", product.getDiscount());
+//                intent.putExtra("description", product.getDescription());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }
@@ -132,13 +132,13 @@ public class LoketAdapter extends RecyclerView.Adapter<LoketAdapter.MyViewHolder
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductViewActivity.class);
                 intent.putExtra("id", product.getId());
-                intent.putExtra("title", product.getTitle());
-                intent.putExtra("image", product.getImage());
-                intent.putExtra("price", product.getPrice());
-                intent.putExtra("currency", product.getCurrency());
-                intent.putExtra("attribute", product.getAttribute());
-                intent.putExtra("discount", product.getDiscount());
-                intent.putExtra("description", product.getDescription());
+//                intent.putExtra("title", product.getTitle());
+//                intent.putExtra("image", product.getImage());
+//                intent.putExtra("price", product.getPrice());
+//                intent.putExtra("currency", product.getCurrency());
+//                intent.putExtra("attribute", product.getAttribute());
+//                intent.putExtra("discount", product.getDiscount());
+//                intent.putExtra("description", product.getDescription());
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 context.startActivity(intent);
             }
