@@ -4,8 +4,10 @@ import com.wartatv.yukantree.model.ModelCategory;
 import com.wartatv.yukantree.model.ModelLoket;
 import com.wartatv.yukantree.model.ModelProduct;
 import com.wartatv.yukantree.model.ModelSlider;
+import com.wartatv.yukantree.model.ModelTransaksi;
 import com.wartatv.yukantree.model.ModelUser;
 import com.wartatv.yukantree.model.ResponseLogin;
+import com.wartatv.yukantree.model.ResponseTransaksi;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -85,13 +87,9 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("admin/transactions")
-    Call<ModelUser> AddAntri(
-            @Path("userId") String userId,
-            @Field("loketId") String loketId,
-            @Field("number") String number,
-            @Field("tanggal") String tanggal,
-            @Field("type") String type,
-            @Field("status") String status
+    Call<ResponseTransaksi> AddAntri(
+            @Field("userId") Integer userId,
+            @Field("loketId") String loketId
     );
 
 }

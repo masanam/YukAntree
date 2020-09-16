@@ -152,7 +152,6 @@ public class HomeFragment extends Fragment {
 
                         @Override
                         public void onPageSelected(int position) {
-
                             for (int i = 0; i < dotscount; i++) {
                                 dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.non_active_dot));
                             }

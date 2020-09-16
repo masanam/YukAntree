@@ -266,6 +266,7 @@ public class Login_Fragment extends Fragment implements OnClickListener {
 
                                         String fullname = databody.getName();
 //                                        Log.i("debug", "onResponse: BERHASIL "+fullname);
+                                        Preferences.setUserid(getActivity(),databody.getUserid());
                                         Preferences.setRegisteredUser(getActivity(),getEmailId);
                                         Preferences.setLoggedInUser(getActivity(),fullname);
                                         Preferences.setLoggedInStatus(getActivity(),true);
