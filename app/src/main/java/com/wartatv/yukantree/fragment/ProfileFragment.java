@@ -3,6 +3,7 @@ package com.wartatv.yukantree.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,13 +14,17 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -41,9 +46,13 @@ import com.wartatv.yukantree.util.Preferences;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.pm.PackageManager;
 
@@ -68,16 +77,17 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static String emailId ;
     private static String getFullName,getPhone,getAddres,getCity,getGender,getBlood,getKtp,getdateOfBirth;
     private static View view;
-    ImageView imgProfilePic, imgUploadPic, imgplus;
-    ProgressDialog dialog;
-
+    private EditText fromDateEtxt;
+    private DatePickerDialog fromDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
     public static final int REQUEST_IMAGE = 100;
 
+    ImageView imgProfilePic, imgUploadPic, imgplus;
+    ProgressDialog dialog;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,16 +102,44 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mobileNumber = view.findViewById(R.id.mobileNumber);
         address = view.findViewById(R.id.user_address);
         city = view.findViewById(R.id.city);
-        gender = view.findViewById(R.id.gender);
+//        gender = view.findViewById(R.id.gender);
         idKtp = view.findViewById(R.id.idKtp);
         dateOfBirth = view.findViewById(R.id.dateOfBirth);
-        blood = view.findViewById(R.id.blood);
+//        blood = view.findViewById(R.id.blood);
         updateBtn = view.findViewById(R.id.updateBtn);
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+        fromDateEtxt = (EditText) view.findViewById(R.id.dateOfBirth);;
+        fromDateEtxt.setInputType(InputType.TYPE_NULL);
+        fromDateEtxt.requestFocus();
+
+        String[] blood = { "A", "B", "O", "AB"};
+        Spinner spin = (Spinner) view.findViewById(R.id.spinner1);
+        ArrayAdapter<String> mSortAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, blood);
+        mSortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spin.setAdapter(mSortAdapter);
 
         getProfile();
         ImagePickerActivity.clearCache(getActivity());
+        setDateTimeField();
         setListeners();
         return view;
+    }
+
+    private void setDateTimeField() {
+        fromDateEtxt.setOnClickListener(this);
+
+        Calendar newCalendar = Calendar.getInstance();
+        fromDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
     }
 
     private void loadProfile(String url) {
@@ -117,23 +155,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 Log.d("Error : ", e.getMessage());
             }
         });
-
-//        GlideApp.with(this).load(url)
-//                .into(imgProfilePic);
-//        imgProfilePic.setColorFilter(ContextCompat.getColor(getActivity(), android.R.color.transparent));
     }
-
-//    private void loadProfileDefault() {
-//        GlideApp.with(this).load(R.drawable.baseline_account_circle_black_48)
-//                .into(imgProfilePic);
-//        imgProfilePic.setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-//    }
 
     // Set Listeners
     private void setListeners() {
-        updateBtn.setOnClickListener(this);
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+                updateProfile();
+            }
+        });
         imgUploadPic.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
@@ -142,9 +175,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    public static String parseDate(String inputDateString, SimpleDateFormat inputDateFormat, SimpleDateFormat outputDateFormat) {
+        Date date = null;
+        String outputDateString = null;
+        try {
+            date = inputDateFormat.parse(inputDateString);
+            outputDateString = outputDateFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return outputDateString;
+    }
+
     private void getProfile() {
         emailId = Preferences.getRegisteredUser(getActivity());
-        final String image = "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png";
+//        final String image = "http://103.16.199.187/idogo/public/storage/files/shares/image/energy-drink.png";
         BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
         Call<ModelUser> call = apiService.getUserProfile(emailId);
 
@@ -160,10 +205,18 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     mobileNumber.setText(databody.getResult().get(0).getPhone());
                     address.setText(databody.getResult().get(0).getAddress());
                     city.setText(databody.getResult().get(0).getCity());
-                    gender.setText(databody.getResult().get(0).getGender());
+//                    gender.setText(databody.getResult().get(0).getGender());
+//                    blood.setText(databody.getResult().get(0).getBlood());
+
                     idKtp.setText(databody.getResult().get(0).getIdKtp());
-                    dateOfBirth.setText(databody.getResult().get(0).getDateOfBirth());
-                    blood.setText(databody.getResult().get(0).getBlood());
+
+                    String dateStr = databody.getResult().get(0).getDateOfBirth();
+                    SimpleDateFormat ymdFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    SimpleDateFormat ddMMyyyy = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                    String outputDateStr = "";
+                    outputDateStr = parseDate(dateStr , ymdFormat, ddMMyyyy);
+
+                    dateOfBirth.setText(outputDateStr);
                     Picasso.get().load(databody.getResult().get(0).getPhoto()).error(R.drawable.no_image).into(imgProfilePic, new com.squareup.picasso.Callback() {
                         @Override
                         public void onSuccess() {
@@ -196,25 +249,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.updateBtn:
-                updateProfile();
-                break;
+    public void onClick(View view) {
+        if(view == fromDateEtxt) {
+            fromDatePickerDialog.show();
         }
     }
 
-
-//    private void cameraIntent() {
-//        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-//        startActivity(intent);
-//
-//    }
-
-
     private void updateProfile() {
         emailId = Preferences.getRegisteredUser(getActivity());
-
         getFullName = fullname.getText().toString();
         getPhone = mobileNumber.getText().toString();
         getAddres = address.getText().toString();
@@ -243,12 +285,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     if (response.isSuccessful()){
 //
                         Preferences.setLoggedInUser(getActivity(),getFullName);
-//                        new CustomToast().Show_Toast(getActivity(), view, "Profile Updated");
-                        /**
-                         * Progress Dialog for User Interaction
-                         */
                         dialog = new ProgressDialog(getActivity());
-//                        dialog.setTitle("Profile");
                         dialog.setMessage("Profile Updated");
                         dialog.show();
                         Handler handler = new Handler();

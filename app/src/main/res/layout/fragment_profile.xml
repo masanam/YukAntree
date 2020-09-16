@@ -148,8 +148,7 @@
                         android:background="@android:color/transparent"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:hint="@string/fullName"
-                        android:inputType="textCapWords"
+                        android:inputType="phone"
                         android:padding="5dp"
                         android:singleLine="true"
                         android:textColor="@color/text_color"
@@ -278,27 +277,37 @@
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
                     android:background="@android:color/white"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <com.wartatv.yukantree.customfonts.MyTextViewSansBold
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Gender :" />
 
-                    <EditText
-                        android:id="@+id/gender"
+                    <RadioGroup
+                        android:id="@+id/genderR"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
                         android:background="@android:color/transparent"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        android:inputType="textCapWords"
-                        android:padding="5dp"
-                        android:singleLine="true"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/yellow"
-                        android:textSize="16sp" />
+                        android:drawablePadding="10dp">
+                        <RadioButton
+                            android:id="@+id/genderM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_10dp"
+                            android:layout_marginRight="@dimen/margin_10dp"
+                            android:text="Male"/>
+                        <RadioButton
+                            android:id="@+id/genderF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_10dp"
+                            android:layout_marginRight="@dimen/margin_10dp"
+                            android:text="Female"/>
+                    </RadioGroup>
+
                 </LinearLayout>
 
                 <View
@@ -314,27 +323,19 @@
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"                    
                     android:background="@android:color/white"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <com.wartatv.yukantree.customfonts.MyTextViewSansBold
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Blood :" />
 
-                    <EditText
-                        android:id="@+id/blood"
+                    <Spinner
+                        android:id="@+id/spinner1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@android:color/transparent"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        android:inputType="textCapWords"
-                        android:padding="5dp"
-                        android:singleLine="true"
-                        android:textColor="@color/text_color"
-                        android:textColorHint="@color/yellow"
-                        android:textSize="16sp" />
+                        android:drawSelectorOnTop="true"/>
                 </LinearLayout>
 
                 <View
@@ -365,7 +366,7 @@
                         android:background="@android:color/transparent"
                         android:drawablePadding="8dp"
                         android:gravity="center_vertical"
-                        android:inputType="textCapWords"
+                        android:inputType="phone"
                         android:padding="5dp"
                         android:singleLine="true"
                         android:textColor="@color/text_color"
