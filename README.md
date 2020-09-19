@@ -2,7 +2,7 @@
 ## Overview
 
 <p align="center">
-  <img src="/images/banner.png" alt="Banner">
+  <img src="/images/welcome.png" alt="WelcomePage">
 </p>
 
 _YukAntree_ is Marketplace for Queue System. Peoples can get queue number from the Host.
