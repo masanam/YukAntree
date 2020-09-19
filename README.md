@@ -10,7 +10,7 @@ _YukAntree_ is Marketplace for Queue System. People can get queue number from th
 ## Features
 
 <p align="center">
-  <img src="/images/overview.png" alt="Overview">
+  <img src="/images/features.png" alt="Features">
 </p>
 
 Features that helps people to get the queue number. They are : 
