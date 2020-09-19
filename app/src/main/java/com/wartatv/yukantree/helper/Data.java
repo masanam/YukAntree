@@ -51,9 +51,7 @@ public class Data {
                     image = new String[data.size()];
                     int i = 0;
                     for (Category d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
+
 
                         prepareCategory(d.getId(),d.getTitle(),d.getImage());
                         Log.i("debug", "onResponse: Category-Data " +title[i]);
@@ -95,9 +93,6 @@ public class Data {
                     image = new String[data.size()];
                     int i = 0;
                     for (Product d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
 
                         prepareProduct(d.getId(),d.getTitle(),d.getImage());
                         Log.i("debug", "onResponse: Host-Data " +title[i]);
@@ -148,12 +143,12 @@ public class Data {
         return offerList;
     }
 
-    private void prepareCategory(String id, String title,String image){
+    private void prepareCategory(String id, String title, String image){
         Category c = new Category(id,title,image);
         categoryList.add(c);
     }
 
-    private void prepareProduct(String id, String title,String image){
+    private void prepareProduct(String id, String title, String image){
         Product h = new Product(id,title,image);
         newList.add(h);
     }

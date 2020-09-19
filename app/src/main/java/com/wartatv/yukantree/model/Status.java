@@ -2,13 +2,13 @@ package com.wartatv.yukantree.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Category{
-
-	@SerializedName("image")
-	private String image;
+public class Status{
 
 	@SerializedName("updated_at")
 	private String updatedAt;
+
+	@SerializedName("updated_by")
+	private String updatedBy;
 
 	@SerializedName("description")
 	private String description;
@@ -17,23 +17,23 @@ public class Category{
 	private String createdAt;
 
 	@SerializedName("id")
-	private String id;
+	private int id;
 
 	@SerializedName("title")
 	private String title;
 
+	@SerializedName("created_by")
+	private String createdBy;
+
 	@SerializedName("deleted_at")
 	private String deletedAt;
 
-	public Category(String id, String title, String image) {
-	}
-
-	public String getImage(){
-		return image;
-	}
-
 	public String getUpdatedAt(){
 		return updatedAt;
+	}
+
+	public String getUpdatedBy(){
+		return updatedBy;
 	}
 
 	public String getDescription(){
@@ -44,12 +44,16 @@ public class Category{
 		return createdAt;
 	}
 
-	public String getId(){
+	public int getId(){
 		return id;
 	}
 
 	public String getTitle(){
 		return title;
+	}
+
+	public String getCreatedBy(){
+		return createdBy;
 	}
 
 	public String getDeletedAt(){

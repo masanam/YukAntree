@@ -94,11 +94,9 @@ public class ProductActivity extends BaseActivity {
                     image = new String[data.size()];
                     int i = 0;
                     for (Loket d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
 
-                        Loket h = new Loket(id[i],title[i],image[i]);
+
+                        Loket h = new Loket(d.getId(),d.getTitle(),d.getImage());
                         loketList.add(h);
 
                         Log.i("debug", "onResponse: Host-Data " +title[i]);

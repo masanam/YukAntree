@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.cart_action:
-                startActivity(new Intent(getApplicationContext(), CartActivity.class));
+                startActivity(new Intent(getApplicationContext(), QueueActivity.class));
                 overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 return true;
         }

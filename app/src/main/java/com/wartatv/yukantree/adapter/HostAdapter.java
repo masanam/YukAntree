@@ -98,16 +98,16 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
             }
         });
 
-        if (!cartList.isEmpty()) {
-            for (int i = 0; i < cartList.size(); i++) {
-                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
-                    holder.shopNow.setVisibility(View.GONE);
-                    holder.quantity_ll.setVisibility(View.VISIBLE);
-                    holder.quantity.setText(cartList.get(i).getQuantity());
-
-                }
-            }
-        }
+//        if (!cartList.isEmpty()) {
+//            for (int i = 0; i < cartList.size(); i++) {
+//                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
+//                    holder.shopNow.setVisibility(View.GONE);
+//                    holder.quantity_ll.setVisibility(View.VISIBLE);
+//                    holder.quantity.setText(cartList.get(i).getQuantity());
+//
+//                }
+//            }
+//        }
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

@@ -44,7 +44,8 @@
         android:backgroundTint="@color/colorPrimary"
         app:fabAlignmentMode="center"
         app:fabCradleRoundedCornerRadius="50dp"
-        app:hideOnScroll="true">
+        app:hideOnScroll="true"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"

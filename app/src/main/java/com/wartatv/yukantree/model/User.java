@@ -2,143 +2,152 @@ package com.wartatv.yukantree.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by .
- * www.wartatv.com
- */
-public class User {
-    @SerializedName("id")
-    private String id;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("email")
-    private String email;
-    @SerializedName("phone")
-    private String phone;
-    @SerializedName("password")
-    private String password;
-    @SerializedName("address")
-    private String address;
-    @SerializedName("city")
-    private String city;
-    @SerializedName("gender")
-    private String gender;
-    @SerializedName("idKtp")
-    private String idKtp;
-    @SerializedName("blood")
-    private String blood;
-    @SerializedName("dateOfBirth")
-    private String dateOfBirth;
-    @SerializedName("photo")
-    private String photo;
+public class User{
 
-    public User(String name, String email, String s, String email1) {
-    }
+	@SerializedName("address")
+	private String address;
 
-    public User(String name, String email, String phone, String password , String address) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-        this.address = address;
-    }
+	@SerializedName("gender")
+	private String gender;
 
-    public String getId() {
-        return id;
-    }
+	@SerializedName("city")
+	private String city;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@SerializedName("roles")
+	private int roles;
 
-    public String getName() {
-        return name;
-    }
+	@SerializedName("photo")
+	private String photo;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@SerializedName("created_at")
+	private String createdAt;
 
-    public String getEmail() {
-        return email;
-    }
+	@SerializedName("email_verified_at")
+	private String emailVerifiedAt;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@SerializedName("dateOfBirth")
+	private String dateOfBirth;
 
-    public String getPhone() {
-        return phone;
-    }
+	@SerializedName("blood")
+	private String blood;
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	@SerializedName("login_ip")
+	private String loginIp;
 
-    public String getPassword() {
-        return password;
-    }
+	@SerializedName("deleted_at")
+	private String deletedAt;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	@SerializedName("password")
+	private String password;
 
-    public String getAddress() {
-        return address;
-    }
+	@SerializedName("updated_at")
+	private String updatedAt;
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	@SerializedName("phone")
+	private String phone;
 
-    public String getCity() {
-        return city;
-    }
+	@SerializedName("name")
+	private String name;
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	@SerializedName("login_at")
+	private String loginAt;
 
-    public String getGender() {
-        return gender;
-    }
+	@SerializedName("idKtp")
+	private String idKtp;
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+	@SerializedName("id")
+	private int id;
 
-    public String getIdKtp() {
-        return idKtp;
-    }
+	@SerializedName("remember_token")
+	private String rememberToken;
 
-    public void setIdKtp(String idKtp) {
-        this.idKtp = idKtp;
-    }
+	@SerializedName("email")
+	private String email;
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
+	@SerializedName("status")
+	private String status;
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+	public String getAddress(){
+		return address;
+	}
 
-    public String getBlood() {
-        return blood;
-    }
+	public String getGender(){
+		return gender;
+	}
 
-    public void setBlood(String blood) {
-        this.blood = blood;
-    }
+	public String getCity(){
+		return city;
+	}
 
-    public String getPhoto() {
-        return photo;
-    }
+	public int getRoles(){
+		return roles;
+	}
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+	public String getPhoto(){
+		return photo;
+	}
 
+	public String getCreatedAt(){
+		return createdAt;
+	}
 
+	public String getEmailVerifiedAt(){
+		return emailVerifiedAt;
+	}
 
+	public String getDateOfBirth(){
+		return dateOfBirth;
+	}
+
+	public String getBlood(){
+		return blood;
+	}
+
+	public String getLoginIp(){
+		return loginIp;
+	}
+
+	public String getDeletedAt(){
+		return deletedAt;
+	}
+
+	public String getPassword(){
+		return password;
+	}
+
+	public String getUpdatedAt(){
+		return updatedAt;
+	}
+
+	public String getPhone(){
+		return phone;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public String getLoginAt(){
+		return loginAt;
+	}
+
+	public String getIdKtp(){
+		return idKtp;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+	public String getRememberToken(){
+		return rememberToken;
+	}
+
+	public String getEmail(){
+		return email;
+	}
+
+	public String getStatus(){
+		return status;
+	}
 }

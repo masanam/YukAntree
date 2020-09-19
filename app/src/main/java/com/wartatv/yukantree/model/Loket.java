@@ -2,158 +2,134 @@ package com.wartatv.yukantree.model;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by .
- * www.wartatv.com
- */
-public class Loket {
-    @SerializedName("id")
-    private String id;
+public class Loket{
 
-    @SerializedName("title")
-    private String title;
+	@SerializedName("image")
+	private String image;
 
-    @SerializedName("image")
-    private String image;
+	@SerializedName("description")
+	private String description;
 
-    @SerializedName("hostId")
-    private String hostId;
+	@SerializedName("discount")
+	private String discount;
 
-    @SerializedName("description")
-    private String description;
+	@SerializedName("hostId")
+	private int hostId;
 
-    @SerializedName("attribute")
-    private String attribute;
+	@SerializedName("created_at")
+	private String createdAt;
 
-    @SerializedName("price")
-    private String price;
+	@SerializedName("title")
+	private String title;
 
-    @SerializedName("discount")
-    private String discount;
+	@SerializedName("created_by")
+	private String createdBy;
 
-    @SerializedName("currency")
-    private String currency;
+	@SerializedName("deleted_at")
+	private String deletedAt;
 
-    @SerializedName("schedule")
-    private String schedule;
+	@SerializedName("schedule")
+	private String schedule;
 
-    @SerializedName("quota")
-    private String quota;
+	@SerializedName("updated_at")
+	private String updatedAt;
 
-    public Loket() {
-    }
+	@SerializedName("price")
+	private int price;
 
-    public Loket(String id, String title, String image) {
-        this.id = id;
-        this.title = title;
-        this.image = image;
-    }
+	@SerializedName("quota")
+	private int quota;
 
-    public Loket(String id, String hostId, String title, String description, String attribute, String price, String discount, String image) {
-        this.id = id;
-        this.hostId = hostId;
-        this.title = title;
-        this.description = description;
-        this.attribute = attribute;
-        this.price = price;
-        this.discount = discount;
-        this.image = image;
-    }
+	@SerializedName("updated_by")
+	private String updatedBy;
 
-    public Loket(String id, String hostId, String title, String description, String attribute, String currency, String price, String discount, String image) {
-        this.id = id;
-        this.hostId = hostId;
-        this.title = title;
-        this.description = description;
-        this.attribute = attribute;
-        this.currency = currency;
-        this.price = price;
-        this.discount = discount;
-        this.image = image;
-    }
+	@SerializedName("host")
+	private Host host;
 
-    public String getId() {
-        return id;
-    }
+	@SerializedName("currency")
+	private String currency;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@SerializedName("id")
+	private String id;
 
-    public String gethostId() {
-        return hostId;
-    }
+	@SerializedName("attribute")
+	private String attribute;
 
-    public void sethostId(String hostId) {
-        this.hostId = hostId;
-    }
+	@SerializedName("status")
+	private int status;
 
-    public String getTitle() {
-        return title;
-    }
+	public Loket(String id, String title, String image) {
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getImage(){
+		return image;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription(){
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDiscount(){
+		return discount;
+	}
 
-    public String getAttribute() {
-        return attribute;
-    }
+	public int getHostId(){
+		return hostId;
+	}
 
-    public void setAttribute(String attribute) {
-        this.attribute = attribute;
-    }
+	public String getCreatedAt(){
+		return createdAt;
+	}
 
-    public String getPrice() {
-        return price;
-    }
+	public String getTitle(){
+		return title;
+	}
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
+	public String getCreatedBy(){
+		return createdBy;
+	}
 
-    public String getDiscount() {
-        return discount;
-    }
+	public String getDeletedAt(){
+		return deletedAt;
+	}
 
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
+	public String getSchedule(){
+		return schedule;
+	}
 
-    public String getImage() {
-        return image;
-    }
+	public String getUpdatedAt(){
+		return updatedAt;
+	}
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+	public int getPrice(){
+		return price;
+	}
 
-    public String getCurrency() {
-        return currency;
-    }
+	public int getQuota(){
+		return quota;
+	}
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
+	public String getUpdatedBy(){
+		return updatedBy;
+	}
 
-    public String getSchedule() {
-        return schedule;
-    }
+	public Host getHost(){
+		return host;
+	}
 
-    public void setSchedule(String schedule) {  this.schedule = schedule;  }
+	public String getCurrency(){
+		return currency;
+	}
 
-    public String getQuota() {
-        return quota;
-    }
+	public String getId(){
+		return id;
+	}
 
-    public void setQuota(String quota) {  this.schedule = quota;  }
+	public String getAttribute(){
+		return attribute;
+	}
 
+	public int getStatus(){
+		return status;
+	}
 }

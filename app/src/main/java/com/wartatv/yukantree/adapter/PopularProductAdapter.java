@@ -97,16 +97,16 @@ public class PopularProductAdapter extends RecyclerView.Adapter<PopularProductAd
         });
 
 
-        if (!cartList.isEmpty()) {
-            for (int i = 0; i < cartList.size(); i++) {
-                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
-                    holder.shopNow.setVisibility(View.GONE);
-                    holder.quantity_ll.setVisibility(View.VISIBLE);
-                    holder.quantity.setText(cartList.get(i).getQuantity());
-                    Log.d("Tag : ", cartList.get(i).getId() + "-->" + product.getId());
-                }
-            }
-        }
+//        if (!cartList.isEmpty()) {
+//            for (int i = 0; i < cartList.size(); i++) {
+//                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
+//                    holder.shopNow.setVisibility(View.GONE);
+//                    holder.quantity_ll.setVisibility(View.VISIBLE);
+//                    holder.quantity.setText(cartList.get(i).getQuantity());
+//                    Log.d("Tag : ", cartList.get(i).getId() + "-->" + product.getId());
+//                }
+//            }
+//        }
 
 
 //        holder.shopNow.setOnClickListener(new View.OnClickListener() {

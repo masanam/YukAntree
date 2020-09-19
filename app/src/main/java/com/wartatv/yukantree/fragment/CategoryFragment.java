@@ -89,11 +89,8 @@ public class CategoryFragment extends Fragment {
                     image = new String[data.size()];
                     int i = 0;
                     for (Category d: data) {
-                        id[i] = d.getId();
-                        title[i] = d.getTitle();
-                        image[i] = d.getImage();
 
-                        Category c = new Category(id[i],title[i],image[i]);
+                        Category c = new Category(d.getId(),d.getTitle(),d.getImage());
                         categoryList.add(c);
 
                         Log.i("debug", "onResponse: Category-Data " +title[i]);

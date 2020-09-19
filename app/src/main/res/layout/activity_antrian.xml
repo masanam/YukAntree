@@ -37,23 +37,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true" />
 
-                    <TextView
-                        android:id="@+id/apv_discount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/rect"
-                        android:paddingLeft="@dimen/margin_10dp"
-                        android:paddingTop="@dimen/margin_5dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="@dimen/margin_5dp"
-                        android:text="10%"
-                        android:textColor="@color/white"
-                        android:textSize="18dp"
-                        android:textStyle="bold"
-                        android:visibility="visible" />
                 </RelativeLayout>
 
 
@@ -98,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3">
 
-
                         <TextView
                             android:id="@+id/date_display"
                             android:layout_width="wrap_content"
@@ -126,87 +108,34 @@
                         android:id="@+id/apv_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/devider"
                         android:text="Loket 6"
                         android:gravity="center"
                         android:padding="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/brown_500"
-                        android:textSize="22dp"
-                        android:visibility="gone"/>
+                        android:textSize="22dp"/>
 
                     <TextView
                         android:id="@+id/apv_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/devider"
                         android:text="Waiting"
                         android:gravity="center"
                         android:padding="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/blue_500"
-                        android:textSize="22dp"
-                        android:visibility="gone"/>
+                        android:textSize="22dp"/>
 
                     <TextView
                         android:id="@+id/apv_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/devider"
                         android:text="Online"
                         android:gravity="center"
                         android:padding="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/red"
-                        android:textSize="22dp"
-                        android:visibility="gone"/>
-
-                </LinearLayout>
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="16dp">
-
-                    <TextView
-
-                        android:id="@+id/free"
-                        android:layout_width="110dp"
-                        android:layout_height="28dp"
-                        android:background="@drawable/rect"
-                        android:gravity="center"
-                        android:text="Open"
-                        android:textColor="#fff"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/est"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Est. time"
-                            android:textColor="@color/colorSub"
-                            android:textSize="13dp" />
-
-                        <TextView
-                            android:id="@+id/date"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.8"
-                            android:text="15 Minutes Max"
-                            android:textColor="@color/colorTex"
-                            android:textSize="13dp" />
-                    </LinearLayout>
-
-
+                        android:textSize="22dp"/>
                 </LinearLayout>
 
                 <View
@@ -219,7 +148,6 @@
                 <!--*********weight**********-->
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -228,53 +156,20 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/weight1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Officer"
+                        android:text="Category"
                         android:textColor="@color/colorSub" />
 
                     <TextView
-                        android:id="@+id/apv_attribute"
+                        android:id="@+id/apv_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="Dr.Xxxxx"
                         android:textColor="@color/colorTex" />
                 </LinearLayout>
 
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/colordevider"
-                    android:padding="16dp" />
-
-
-                <!--*********discription**********-->
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/disc1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/arrow2"
-                        android:text="Description"
-                        android:textColor="@color/colorSub"
-
-                        />
-
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -287,26 +182,33 @@
                 <!--*********Est. delivery**********-->
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:orientation="horizontal">
 
-
                     <TextView
-                        android:id="@+id/apv_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorTex" />
+                        android:layout_weight="1"
+                        android:text="Host"
+                        android:textColor="@color/colorSub" />
 
+                    <TextView
+                        android:id="@+id/apv_host"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:textColor="@color/colorTex" />
                 </LinearLayout>
 
-                <View
 
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
                     android:background="@color/colordevider"
                     android:padding="16dp" />
 
@@ -314,7 +216,6 @@
                 <!--*********Returns**********-->
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -323,19 +224,50 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/return1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Quota"
+                        android:text="Address"
                         android:textColor="@color/colorSub" />
 
                     <TextView
-                        android:id="@+id/return2"
+                        android:id="@+id/apv_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:text="Not accepted"
+                        android:textColor="@color/colorTex" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colordevider"
+                    android:padding="16dp" />
+
+                <!--*********Returns**********-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="City"
+                        android:textColor="@color/colorSub" />
+
+                    <TextView
+                        android:id="@+id/apv_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
                         android:textColor="@color/colorTex" />
 
                 </LinearLayout>
@@ -348,10 +280,43 @@
                     android:padding="16dp" />
 
 
+
+                <!--*********Returns**********-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Phone"
+                        android:textColor="@color/colorSub" />
+
+                    <TextView
+                        android:id="@+id/apv_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:textColor="@color/colorTex" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colordevider"
+                    android:padding="16dp" />
+
                 <!--*********Guarantee**********-->
 
                 <LinearLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -364,18 +329,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Returns"
+                        android:text="Schedule"
                         android:textColor="@color/colorSub" />
 
                     <TextView
-                        android:id="@+id/guarantee2"
+                        android:id="@+id/apv_schedule"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.5"
-                        android:drawableRight="@drawable/arrow2"
-                        android:text="Money Back Guarantee"
                         android:textColor="@color/colorTex"
-
                         />
 
                 </LinearLayout>
@@ -387,82 +349,78 @@
                     android:background="@color/colordevider"
                     android:padding="16dp" />
 
+                <!--*********Guarantee**********-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:id="@+id/quantity_rl"
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:visibility="gone">
+                        android:text="Quota"
+                        android:textColor="@color/colorSub" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="11dp"
-                            android:background="@drawable/shop_button_bg"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/quantity_minus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="12dp"
-                                android:paddingTop="5dp"
-                                android:paddingRight="12dp"
-                                android:paddingBottom="5dp"
-                                android:text="-"
-                                android:textColor="@color/white"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/quantity"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="5dp"
-                                android:paddingTop="5dp"
-                                android:paddingRight="5dp"
-                                android:paddingBottom="5dp"
-                                android:text="1"
-                                android:textColor="@color/white"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/quantity_plus"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:paddingLeft="12dp"
-                                android:paddingTop="5dp"
-                                android:paddingRight="12dp"
-                                android:paddingBottom="5dp"
-                                android:text="+"
-                                android:textColor="@color/white"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </RelativeLayout>
-
-
+                    <TextView
+                        android:id="@+id/apv_quota"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:textColor="@color/colorTex"
+                        />
 
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colordevider"
+                    android:padding="16dp" />
+
+                <!--*********Guarantee**********-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Price"
+                        android:textColor="@color/colorSub" />
+
+                    <TextView
+                        android:id="@+id/apv_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:textColor="@color/colorTex"
+                        />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colordevider"
+                    android:padding="16dp" />
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-
-    <!--****buy****-->
 
     <Button
         android:id="@+id/updateBuy"
@@ -474,7 +432,7 @@
         android:layout_marginRight="25dp"
         android:layout_alignParentBottom="true"
         android:padding="3dp"
-        android:text="Get Number"
+        android:text="Cancelled"
         android:textColor="@color/white"
         android:textSize="17sp"
         android:textStyle="bold" />

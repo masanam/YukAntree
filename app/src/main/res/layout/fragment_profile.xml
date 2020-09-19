@@ -15,7 +15,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:layout_marginBottom="65dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -189,7 +190,8 @@
                         android:singleLine="true"
                         android:textColor="@color/text_color"
                         android:textColorHint="@color/yellow"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:drawableRight="@drawable/arrow2" />
                 </LinearLayout>
 
                 <View
@@ -270,6 +272,7 @@
                     android:background="@color/grey_light" />
 
                 <LinearLayout
+                    android:id="@+id/Bgender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10dp"
@@ -278,12 +281,60 @@
                     android:paddingRight="@dimen/margin_10dp"
                     android:background="@android:color/white"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:clickable="true">
 
                     <com.wartatv.yukantree.customfonts.MyTextViewSansBold
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:text="Gender :" />
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawableRight="@drawable/arrow2"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_light" />
+
+                <LinearLayout
+                    android:id="@+id/Lgender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:background="@color/devider"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <com.wartatv.yukantree.customfonts.MyTextViewSansBold
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp" />
 
                     <RadioGroup
                         android:id="@+id/genderR"
@@ -298,6 +349,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/margin_10dp"
                             android:layout_marginRight="@dimen/margin_10dp"
+                            android:tag="1"
                             android:text="Male"/>
                         <RadioButton
                             android:id="@+id/genderF"
@@ -305,6 +357,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/margin_10dp"
                             android:layout_marginRight="@dimen/margin_10dp"
+                            android:tag="2"
                             android:text="Female"/>
                     </RadioGroup>
 
@@ -316,6 +369,7 @@
                     android:background="@color/grey_light" />
                 
                 <LinearLayout
+                    android:id="@+id/Bblood"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_10dp"
@@ -331,9 +385,46 @@
                         android:layout_height="wrap_content"
                         android:text="Blood :" />
 
+                    <TextView
+                        android:id="@+id/blood"
+                        android:background="@android:color/transparent"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/text_color"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:drawableRight="@drawable/arrow2"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_light" />
+
+                <LinearLayout
+                    android:id="@+id/Lblood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10dp"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:background="@color/devider"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <com.wartatv.yukantree.customfonts.MyTextViewSansBold
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"/>
+
                     <Spinner
                         android:id="@+id/spinner1"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawSelectorOnTop="true"/>
                 </LinearLayout>
@@ -379,38 +470,32 @@
                     android:layout_height="1dp"
                     android:background="@color/grey_light" />
 
-                <Button
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:paddingRight="@dimen/margin_10dp"
+                android:background="@color/devider"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="150dp">
+
+            <Button
                     android:id="@+id/updateBtn"
                     style="@style/loginButton"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="25dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
                     android:padding="3dp"
                     android:text="@string/update"
                     android:textColor="@color/white"
                     android:textSize="17sp"
                     android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp">
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:cardCornerRadius="2dp"
-                        app:cardElevation="4dp"
-                        app:cardUseCompatPadding="true">
-
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/offer3"
-                            android:scaleType="fitXY" />
-
-                    </androidx.cardview.widget.CardView>
-                </RelativeLayout>
-
+                </LinearLayout>
             </LinearLayout>
 
         </RelativeLayout>

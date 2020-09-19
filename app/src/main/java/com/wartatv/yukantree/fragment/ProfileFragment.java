@@ -24,6 +24,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -54,8 +57,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import android.content.pm.PackageManager;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,18 +73,25 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private static Button updateBtn;
 
-    private static EditText fullname,  mobileNumber, address, city, gender, idKtp, dateOfBirth, blood;
-    private static TextView userEmail;
+    private static EditText fullname,  mobileNumber, address, city, idKtp, dateOfBirth;
+    private static TextView gender,blood,userEmail;
     private static String emailId ;
-    private static String getFullName,getPhone,getAddres,getCity,getGender,getBlood,getKtp,getdateOfBirth;
+    private static String getFullName,getPhone,getAddres,getCity,getGender,getBlood,getKtp,getdateOfBirth, getPhoto;
     private static View view;
     private EditText fromDateEtxt;
     private DatePickerDialog fromDatePickerDialog;
     private SimpleDateFormat dateFormatter;
     public static final int REQUEST_IMAGE = 100;
+    private Spinner bloodspin;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private Bitmap bitmap;
+    private Uri uri;
 
     ImageView imgProfilePic, imgUploadPic, imgplus;
     ProgressDialog dialog;
+    LinearLayout Bgender, Lgender, Bblood, Lblood;
+    private boolean isButtonShown = false;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -99,14 +107,23 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         imgProfilePic = view.findViewById(R.id.imgProfile);
         fullname = view.findViewById(R.id.fullName);
         userEmail = view.findViewById(R.id.userEmail);
+        gender = view.findViewById(R.id.gender);
+        blood = view.findViewById(R.id.blood);
+
         mobileNumber = view.findViewById(R.id.mobileNumber);
         address = view.findViewById(R.id.user_address);
         city = view.findViewById(R.id.city);
-//        gender = view.findViewById(R.id.gender);
         idKtp = view.findViewById(R.id.idKtp);
         dateOfBirth = view.findViewById(R.id.dateOfBirth);
-//        blood = view.findViewById(R.id.blood);
         updateBtn = view.findViewById(R.id.updateBtn);
+        radioGroup = view.findViewById(R.id.genderR);
+
+        Bgender = view.findViewById(R.id.Bgender);
+        Lgender = view.findViewById(R.id.Lgender);
+
+        Bblood = view.findViewById(R.id.Bblood);
+        Lblood = view.findViewById(R.id.Lblood);
+
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         fromDateEtxt = (EditText) view.findViewById(R.id.dateOfBirth);;
@@ -114,10 +131,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         fromDateEtxt.requestFocus();
 
         String[] blood = { "A", "B", "O", "AB"};
-        Spinner spin = (Spinner) view.findViewById(R.id.spinner1);
+        bloodspin = (Spinner) view.findViewById(R.id.spinner1);
         ArrayAdapter<String> mSortAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, blood);
         mSortAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(mSortAdapter);
+        bloodspin.setAdapter(mSortAdapter);
 
         getProfile();
         ImagePickerActivity.clearCache(getActivity());
@@ -173,6 +190,34 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 onProfileImageClick();
             }
         });
+        Bgender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+//                Lgender.setVisibility(View.VISIBLE);
+                if (isButtonShown) {
+                    isButtonShown = false;
+                    Lgender.setVisibility(View.GONE);
+                } else {
+                    isButtonShown = true;
+                    Lgender.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        Bblood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+//                Lblood.setVisibility(View.VISIBLE);
+                if (isButtonShown) {
+                    isButtonShown = false;
+                    Lblood.setVisibility(View.GONE);
+                } else {
+                    isButtonShown = true;
+                    Lblood.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     public static String parseDate(String inputDateString, SimpleDateFormat inputDateFormat, SimpleDateFormat outputDateFormat) {
@@ -198,16 +243,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             public void onResponse(Call<ModelUser> call, Response<ModelUser> response) {
                 if (response.isSuccessful()){
                     ModelUser databody = response.body();
-                    Log.i("debug", "onResponse: Profile Found "+databody.getResult().get(0).getName());
+                    Log.i("debug", "onResponse: Profile Found "+databody.getResult().get(0).getGender());
 
                     fullname.setText(databody.getResult().get(0).getName());
                     userEmail.setText(databody.getResult().get(0).getEmail());
                     mobileNumber.setText(databody.getResult().get(0).getPhone());
                     address.setText(databody.getResult().get(0).getAddress());
                     city.setText(databody.getResult().get(0).getCity());
-//                    gender.setText(databody.getResult().get(0).getGender());
-//                    blood.setText(databody.getResult().get(0).getBlood());
-
+                    gender.setText(databody.getResult().get(0).getGender());
+                    blood.setText(databody.getResult().get(0).getBlood());
                     idKtp.setText(databody.getResult().get(0).getIdKtp());
 
                     String dateStr = databody.getResult().get(0).getDateOfBirth();
@@ -256,15 +300,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void updateProfile() {
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+        radioButton = (RadioButton) view.findViewById(selectedId);
+
         emailId = Preferences.getRegisteredUser(getActivity());
         getFullName = fullname.getText().toString();
         getPhone = mobileNumber.getText().toString();
         getAddres = address.getText().toString();
         getCity = city.getText().toString();
-        getGender = gender.getText().toString();
-        getBlood = blood.getText().toString();
+        getBlood = bloodspin.getSelectedItem().toString();
         getKtp = idKtp.getText().toString();
         getdateOfBirth = dateOfBirth.getText().toString();
+
+        if (uri != null && !uri.equals("null")) {
+                getPhoto = uri.toString();
+            }
+
+        if (radioButton!= null){
+            getGender = radioButton.getText().toString();
+
+        }
+
+        Log.d("tag","selection" + getPhoto);
 
         BaseApiService apiService = RetrofitClient.getInstanceRetrofit();
             Call<ModelUser> call = apiService.updateProfile(
@@ -276,14 +333,48 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     getCity,
                     getGender,
                     getBlood,
-                    getKtp
+                    getKtp,
+                    getPhoto
                     );
 
         call.enqueue(new Callback<ModelUser>() {
                 @Override
                 public void onResponse(Call<ModelUser> call, Response<ModelUser> response) {
                     if (response.isSuccessful()){
-//
+                        ModelUser databody = response.body();
+                        Log.i("debug", "onResponse: Profile Found "+databody.getResult().get(0).getName());
+
+                        fullname.setText(databody.getResult().get(0).getName());
+                        userEmail.setText(databody.getResult().get(0).getEmail());
+                        mobileNumber.setText(databody.getResult().get(0).getPhone());
+                        address.setText(databody.getResult().get(0).getAddress());
+                        city.setText(databody.getResult().get(0).getCity());
+                        gender.setText(databody.getResult().get(0).getGender());
+                        blood.setText(databody.getResult().get(0).getBlood());
+                        idKtp.setText(databody.getResult().get(0).getIdKtp());
+
+                        Lgender.setVisibility(View.GONE);
+                        Lblood.setVisibility(View.GONE);
+
+                        String dateStr = databody.getResult().get(0).getDateOfBirth();
+                        SimpleDateFormat ymdFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                        SimpleDateFormat ddMMyyyy = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                        String outputDateStr = "";
+                        outputDateStr = parseDate(dateStr , ymdFormat, ddMMyyyy);
+
+                        dateOfBirth.setText(outputDateStr);
+                        Picasso.get().load(databody.getResult().get(0).getPhoto()).error(R.drawable.no_image).into(imgProfilePic, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d("debug : ", "berhasil");
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                Log.d("Error : ", e.getMessage());
+                            }
+                        });
+
                         Preferences.setLoggedInUser(getActivity(),getFullName);
                         dialog = new ProgressDialog(getActivity());
                         dialog.setMessage("Profile Updated");
@@ -375,10 +466,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
-                Uri uri = data.getParcelableExtra("path");
+                uri = data.getParcelableExtra("path");
+                Log.d("debug : ", "Foto berhasil"+ uri.toString());
                 try {
                     // You can update this bitmap to your server
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
 
                     // loading profile image from local cache
                     loadProfile(uri.toString());

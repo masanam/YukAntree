@@ -48,7 +48,10 @@
             android:name=".activity.HostActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
-            android:name=".activity.LoketActivity"
+        android:name=".activity.LoketActivity"
+        android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity
+            android:name=".activity.QueueActivity"
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".activity.LoginRegisterActivity"

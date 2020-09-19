@@ -6,14 +6,17 @@ import com.wartatv.yukantree.model.ModelProduct;
 import com.wartatv.yukantree.model.ModelSlider;
 import com.wartatv.yukantree.model.ModelTransaksi;
 import com.wartatv.yukantree.model.ModelUser;
+import com.wartatv.yukantree.model.ResponseHistory;
 import com.wartatv.yukantree.model.ResponseLogin;
 import com.wartatv.yukantree.model.ResponseTransaksi;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -82,7 +85,8 @@ public interface BaseApiService {
             @Field("city") String city,
             @Field("gender") String gender,
             @Field("blood") String blood,
-            @Field("idKtp") String idKtp
+            @Field("idKtp") String idKtp,
+            @Field("photo") String photo
     );
 
     @FormUrlEncoded
@@ -90,6 +94,24 @@ public interface BaseApiService {
     Call<ResponseTransaksi> AddAntri(
             @Field("userId") Integer userId,
             @Field("loketId") String loketId
+    );
+
+    @FormUrlEncoded
+    @POST("admin/getLoketTransaction")
+    Call<ResponseHistory> getLoketTransaction(
+            @Field("loketId") String loketId
+    );
+
+    @FormUrlEncoded
+    @POST("admin/getUserTransaction")
+    Call<ResponseHistory> getUserTransaction(
+            @Field("userId") Integer userId
+    );
+
+    @FormUrlEncoded
+    @POST("admin/getUserHistory")
+    Call<ResponseHistory> getUserHistory(
+            @Field("userId") Integer userId
     );
 
 }

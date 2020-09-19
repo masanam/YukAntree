@@ -1,11 +1,12 @@
 package com.wartatv.yukantree.model;
 
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseTransaksi{
+public class ResponseHistory{
 
 	@SerializedName("data")
-	private DataTrx data;
+	private List<DataItem> data;
 
 	@SerializedName("success")
 	private boolean success;
@@ -13,7 +14,7 @@ public class ResponseTransaksi{
 	@SerializedName("message")
 	private String message;
 
-	public DataTrx getData(){
+	public List<DataItem> getData(){
 		return data;
 	}
 

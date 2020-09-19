@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,19 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.wartatv.yukantree.R;
-import com.wartatv.yukantree.adapter.LoketAdapter;
 import com.wartatv.yukantree.api.BaseApiService;
 import com.wartatv.yukantree.api.RetrofitClient;
 import com.wartatv.yukantree.helper.Converter;
 import com.wartatv.yukantree.model.Cart;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.wartatv.yukantree.activity.BaseActivity;
 import com.wartatv.yukantree.model.Loket;
 import com.wartatv.yukantree.model.ModelLoket;
 import com.wartatv.yukantree.model.ResponseTransaksi;
@@ -60,11 +57,7 @@ public class ProductViewActivity extends BaseActivity {
     String _title;
     int userId;
     String loketId;
-    String number;
-    String tanggal;
-    String type;
-    String status;
-    TextView id, title, description, txtnumber,txtstatus, txttype, discount, attribute, dateTimeDisplay;
+    TextView title, description, txtnumber,txtstatus, txttype, discount, attribute, dateTimeDisplay;
     ImageView imageView;
     ProgressBar progressBar;
     LinearLayout addToCart, share;
@@ -75,7 +68,7 @@ public class ProductViewActivity extends BaseActivity {
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
-    ProgressDialog dialog;
+    private static Button updateBuy;
 
 
     @Override
@@ -112,45 +105,13 @@ public class ProductViewActivity extends BaseActivity {
         dateTimeDisplay = findViewById(R.id.date_display);
 
         discount.setText("Open");
-//        Log.d(TAG, "Discount : " + _discount);
-//        if (_discount != null || _discount.length() != 0 || _discount != "") {
-//            discount.setVisibility(View.VISIBLE);
-//        } else {
-//            discount.setVisibility(View.GONE);
-//        }
         getLoketDetail();
         calendar = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("EEE, d MMMM yyyy HH:mm:ss");
         date = df.format(calendar.getTime());
         dateTimeDisplay.setText(date);
-
-
-//        if (!cartList.isEmpty()) {
-//            for (int i = 0; i < cartList.size(); i++) {
-//                if (cartList.get(i).getId().equalsIgnoreCase(_id)) {
-//                    addToCart.setVisibility(View.GONE);
-//                    quantityLL.setVisibility(View.VISIBLE);
-//                    quantity.setText(cartList.get(i).getQuantity());
-//                    cartId = i;
-//
-//                }
-//            }
-//        }
-
-//        ImageView feed=findViewById(R.id.nav_history);
-//        feed.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                fragment = new MyOrderFragment();
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.setCustomAnimations(R.anim.slide_to_left,R.anim.slide_from_right);
-//                ft.replace(R.id.content_frame, fragment);
-//                ft.commit();
-//            }
-//        });
-
-        TextView getNumber = findViewById(R.id.buy);
-        getNumber.setOnClickListener(new View.OnClickListener() {
+        updateBuy = findViewById(R.id.updateBuy);
+        updateBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateNumber();
@@ -262,8 +223,11 @@ public class ProductViewActivity extends BaseActivity {
                     txtnumber.setVisibility(View.VISIBLE);
                     txtstatus.setVisibility(View.VISIBLE);
                     txtnumber.setText(databody.getData().getNumber());
-//                    txtstatus.setText(databody.getData().getStatus());
-//                    txttype.setText(databody.getData().getType());
+
+                    startActivity(new Intent(ProductViewActivity.this, QueueActivity.class));
+                    ProductViewActivity.this.finish();
+                    ProductViewActivity.this.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+
                     Log.i("debug", "onResponse: BERHASIL"+loketId);
                 } else {
                     Log.i("debug", "onResponse: GA BERHASIL");

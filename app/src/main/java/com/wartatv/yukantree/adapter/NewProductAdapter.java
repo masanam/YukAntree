@@ -84,9 +84,7 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
         holder.quantity.setText("1");
 
         holder.title.setText(product.getTitle());
-        holder.price.setText(product.getPhone());
-        holder.currency.setText(product.getCurrency());
-        holder.attribute.setText(product.getAddress());
+        holder.price.setText(product.getCity());
         Picasso.get().load(product.getImage()).error(R.drawable.no_image).into(holder.imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -99,16 +97,16 @@ public class NewProductAdapter extends RecyclerView.Adapter<NewProductAdapter.My
             }
         });
 
-        if (!cartList.isEmpty()) {
-            for (int i = 0; i < cartList.size(); i++) {
-                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
-                    holder.shopNow.setVisibility(View.GONE);
-                    holder.quantity_ll.setVisibility(View.VISIBLE);
-                    holder.quantity.setText(cartList.get(i).getQuantity());
-
-                }
-            }
-        }
+//        if (!cartList.isEmpty()) {
+//            for (int i = 0; i < cartList.size(); i++) {
+//                if (cartList.get(i).getId().equalsIgnoreCase(product.getId())) {
+//                    holder.shopNow.setVisibility(View.GONE);
+//                    holder.quantity_ll.setVisibility(View.VISIBLE);
+//                    holder.quantity.setText(cartList.get(i).getQuantity());
+//
+//                }
+//            }
+//        }
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
